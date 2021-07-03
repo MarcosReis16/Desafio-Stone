@@ -1,9 +1,11 @@
-﻿namespace Stone.Dominio.Classes
+﻿using Stone.Dominio.Classes.Base;
+
+namespace Stone.Dominio.Classes
 {
     /// <summary>
     /// Entidade responsável pelo cartão
     /// </summary>
-    public class Cartao
+    public class Cartao : ModelBase
     {
         /// <summary>
         /// Bandeira
@@ -28,6 +30,6 @@
         /// <summary>
         /// Código de Segurança
         /// </summary>
-        public string CodigoDeSeguranca { get; set; }
+        public string CodigoDeSeguranca { get; private set; }
     }
 }

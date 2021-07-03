@@ -7,6 +7,9 @@ namespace Stone.Dominio.DTO
     /// </summary>
     public class EnderecoDTO
     {
+        /// <summary>
+        /// Identificador do Endereço
+        /// </summary>
         public Guid? Id { get; set; }
 
         /// <summary>

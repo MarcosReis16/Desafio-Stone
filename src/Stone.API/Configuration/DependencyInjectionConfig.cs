@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Stone.Infraestrutura.Contextos;
 
 namespace Stone.API.Configuration
 {
@@ -14,6 +15,7 @@ namespace Stone.API.Configuration
         /// <returns>Service Collection</returns>
         public static IServiceCollection ResolveDependencies(this IServiceCollection services)
         {
+            services.AddScoped<MeuDbContext>();
 
             return services;
         }

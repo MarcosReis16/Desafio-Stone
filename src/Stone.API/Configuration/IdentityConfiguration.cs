@@ -21,7 +21,8 @@ namespace Stone.API.Configuration
                                                                   IConfiguration configuration)
         {
             services.AddDbContext<MeuDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConneection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentityCore<IdentityUser>()
                     .AddEntityFrameworkStores<MeuDbContext>()
                     .AddDefaultTokenProviders();
