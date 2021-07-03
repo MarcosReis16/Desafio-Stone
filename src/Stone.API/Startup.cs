@@ -37,9 +37,10 @@ namespace Stone.API
             services.AddAutoMapper(typeof(Startup));
 
             services.ResolveDependencies();
-            
 
-            //services.AddIdentity<AuthUser, IdentityRole<Guid>>();
+            services.AddIdentityConfiguration(Configuration);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

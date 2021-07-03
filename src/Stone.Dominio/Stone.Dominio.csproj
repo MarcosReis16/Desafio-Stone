@@ -6,8 +6,11 @@
 
   <ItemGroup>
     <Folder Include="InterfacesDosRepositorios\" />
-    <Folder Include="Enums\" />
-    <Folder Include="DTO\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="microsoft.extensions.identity.stores" Version="5.0.7" />
   </ItemGroup>
 
 </Project>
