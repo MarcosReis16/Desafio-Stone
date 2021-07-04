@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Stone.Dominio.DTO
 {
@@ -36,5 +37,10 @@ namespace Stone.Dominio.DTO
         /// Endereço
         /// </summary>
         public EnderecoDTO Endereco { get; set; }
+
+        /// <summary>
+        /// Compras feitas pelo usuário
+        /// </summary>
+        public IList<TransacaoDTO> Compras { get; set; }
     }
 }

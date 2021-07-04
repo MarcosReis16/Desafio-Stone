@@ -79,14 +79,15 @@ namespace Stone.Infraestrutura.Repositorios
         }
 
         /// <summary>
-        /// Método responsável por obter um usuário com seu endereço por Id
+        /// Método responsável por obter um usuário com seu endereço e suas compras por Id
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
-        /// <returns>Usuário com Endereço</returns>
-        public async Task<Usuario> ObterUsuarioEnderecoPorId(Guid id)
+        /// <returns>Usuário com Endereço e Compras</returns>
+        public async Task<Usuario> ObterUsuarioEnderecoTransacoesCartoesPorId(Guid id)
         {
-            return await DbSet.AsNoTracking()
-                              .Include(u => u.Endereco)
+            return await DbSet.Include(u => u.Endereco)
+                              .Include(u => u.Transacoes)
+                              .Include(u => u.Cartoes)
                               .FirstOrDefaultAsync(u => u.Id == id);
         }
 

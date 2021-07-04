@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Stone.Dominio.DTO
 {
@@ -36,6 +37,16 @@ namespace Stone.Dominio.DTO
         /// Código de Segurança
         /// </summary>
         public string CodigoDeSeguranca { get; set; }
+
+        /// <summary>
+        /// Usuário
+        /// </summary>
+        public UsuarioDTO Usuario { get; set; }
+
+        /// <summary>
+        /// Transações que o cartão foi utilizado
+        /// </summary>
+        public IList<TransacaoDTO> Transacoes { get; set; }
 
         /// <summary>
         /// Confirmação se o cartão será salvo na base de dados

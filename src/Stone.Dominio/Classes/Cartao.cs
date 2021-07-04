@@ -1,4 +1,6 @@
 ﻿using Stone.Dominio.Classes.Base;
+using System;
+using System.Collections.Generic;
 
 namespace Stone.Dominio.Classes
 {
@@ -31,5 +33,22 @@ namespace Stone.Dominio.Classes
         /// Código de Segurança
         /// </summary>
         public string CodigoDeSeguranca { get; private set; }
+
+        /// <summary>
+        /// Identificador do usuário
+        /// </summary>
+        public Guid IdUsuario { get; private set; }
+
+        /// <summary>
+        /// Usuário
+        /// </summary>
+        public Usuario Usuario { get; private set; }
+
+        /// <summary>
+        /// Transações que o cartão foi utilizado
+        /// </summary>
+        public IList<Transacao> Transacoes { get; private set; }
+
+
     }
 }

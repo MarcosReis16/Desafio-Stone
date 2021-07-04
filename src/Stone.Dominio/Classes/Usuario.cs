@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace Stone.Dominio.Classes
 {
@@ -32,6 +33,16 @@ namespace Stone.Dominio.Classes
         /// Endereco
         /// </summary>
         public Endereco Endereco { get; private set; }
+
+        /// <summary>
+        /// Transações efetuadas pelo usuário
+        /// </summary>
+        public IList<Transacao> Transacoes { get; private set; }
+
+        /// <summary>
+        /// Cartões salvos pelo usuário
+        /// </summary>
+        public IList<Cartao> Cartoes { get; private set; }
 
         /// <summary>
         /// Construtor padrão

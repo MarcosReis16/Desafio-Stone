@@ -42,7 +42,7 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// <returns>Lista de Entidades</returns>
         public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
         {
-            return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
+            return await DbSet.Where(predicate).ToListAsync();
         }
 
         /// <summary>

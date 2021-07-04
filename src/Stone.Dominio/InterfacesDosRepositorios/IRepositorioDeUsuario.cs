@@ -26,11 +26,11 @@ namespace Stone.Dominio.InterfacesDosRepositorios
         Task<Usuario> ObterPorId(Guid id);
 
         /// <summary>
-        /// Método responsável por obter um usuário com seu endereço por Id
+        /// Método responsável por obter um usuário com seu endereço e suas compras por Id
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
-        /// <returns>Usuário com Endereço</returns>
-        Task<Usuario> ObterUsuarioEnderecoPorId(Guid id);
+        /// <returns>Usuário com Endereço e Compras</returns>
+        Task<Usuario> ObterUsuarioEnderecoTransacoesCartoesPorId(Guid id);
 
         /// <summary>
         /// Método responsável por obter uma lista com todos os usuários
