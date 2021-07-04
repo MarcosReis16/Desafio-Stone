@@ -51,7 +51,7 @@ namespace Stone.Infraestrutura.Repositorios
         /// <summary>
         /// Método responsável por atualizar um usuário
         /// </summary>
-        /// <param name="entity">Usuário</param>
+        /// <param name="usuario">Usuário</param>
         /// <returns></returns>
         public async Task Atualizar(Usuario usuario)
         {
@@ -79,10 +79,10 @@ namespace Stone.Infraestrutura.Repositorios
         }
 
         /// <summary>
-        /// Método responsável por obter um usuário com seu endereço e suas compras por Id
+        /// Método responsável por obter um usuário com seu endereço, transações e cartões salvos através do Id
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
-        /// <returns>Usuário com Endereço e Compras</returns>
+        /// <returns>Usuário com Endereço, Transações e Cartões</returns>
         public async Task<Usuario> ObterUsuarioEnderecoTransacoesCartoesPorId(Guid id)
         {
             return await DbSet.Include(u => u.Endereco)

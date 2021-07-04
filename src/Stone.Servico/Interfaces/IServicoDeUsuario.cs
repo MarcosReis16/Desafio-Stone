@@ -1,49 +1,45 @@
-﻿using Stone.Dominio.Classes;
+﻿using Stone.Dominio.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Stone.Dominio.InterfacesDosRepositorios
+namespace Stone.Servico.Interfaces
 {
-    /// <summary>
-    /// Interface de repositório do usuário
-    /// </summary>
-    public interface IRepositorioDeUsuario
+    public interface IServicoDeUsuario
     {
         /// <summary>
         /// Método para adicionar um usuário
         /// </summary>
         /// <param name="usuario">Usuário</param>
         /// <returns></returns>
-        Task Adicionar(Usuario usuario);
+        Task Adicionar(UsuarioDTO usuario);
 
         /// <summary>
         /// Método responsável por obter um usuário por Id
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
         /// <returns>Usuário</returns>
-        Task<Usuario> ObterPorId(Guid id);
+        Task<UsuarioDTO> ObterPorId(Guid id);
 
         /// <summary>
         /// Método responsável por obter um usuário com seu endereço, transações e cartões salvos através do Id
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
         /// <returns>Usuário com Endereço, Transações e Cartões</returns>
-        Task<Usuario> ObterUsuarioEnderecoTransacoesCartoesPorId(Guid id);
+        Task<UsuarioDTO> ObterUsuarioEnderecoTransacoesCartoesPorId(Guid id);
 
         /// <summary>
         /// Método responsável por obter uma lista com todos os usuários
         /// </summary>
         /// <returns>Lista de usuários</returns>
-        Task<IEnumerable<Usuario>> ObterTodos();
+        Task<IEnumerable<UsuarioDTO>> ObterTodos();
 
         /// <summary>
         /// Método responsável por atualizar um usuário
         /// </summary>
         /// <param name="entity">Usuário</param>
         /// <returns></returns>
-        Task Atualizar(Usuario usuario);
+        Task Atualizar(UsuarioDTO usuario);
 
         /// <summary>
         /// Método responsável por remover um usuário
@@ -51,12 +47,5 @@ namespace Stone.Dominio.InterfacesDosRepositorios
         /// <param name="id">Identificador do usuário</param>
         /// <returns></returns>
         Task Remover(Guid id);
-
-        /// <summary>
-        /// Método responsável por retornar uma entidade através de lambda expression
-        /// </summary>
-        /// <param name="predicate">Expressão lambda</param>
-        /// <returns>Lista de Usuários</returns>
-        Task<IEnumerable<Usuario>> Buscar(Expression<Func<Usuario, bool>> predicate);
     }
 }

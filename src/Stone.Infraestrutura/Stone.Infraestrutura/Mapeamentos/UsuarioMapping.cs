@@ -40,6 +40,7 @@ namespace Stone.Infraestrutura.Mapeamentos
                 .WithOne(u => u.Usuario)
                 .HasForeignKey(u => u.IdUsuario)
                 .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
