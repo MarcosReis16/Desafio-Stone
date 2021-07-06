@@ -15,8 +15,8 @@ namespace Stone.Dominio.InterfacesDosRepositorios
         /// Método genérico de adicionar uma entidade
         /// </summary>
         /// <param name="entity">Entidade genérica</param>
-        /// <returns></returns>
-        Task Adicionar(TEntity entity);
+        /// <returns>Confirmação</returns>
+        Task<bool> Adicionar(TEntity entity);
 
         /// <summary>
         /// Método genérico responsável por obter uma entidade por Id
@@ -35,15 +35,15 @@ namespace Stone.Dominio.InterfacesDosRepositorios
         /// Método genérico responsável por atualizar uma entidade
         /// </summary>
         /// <param name="entity">Entidade genérica</param>
-        /// <returns></returns>
-        Task Atualizar(TEntity entity);
+        /// <returns>Confirmação</returns>
+        Task<bool> Atualizar(TEntity entity);
 
         /// <summary>
         /// Método genérico responsável por remover uma entidade
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
-        /// <returns></returns>
-        Task Remover(Guid id);
+        /// <returns>Confirmação</returns>
+        Task<bool> Remover(Guid id);
 
         /// <summary>
         /// Método responsável por retornar uma entidade através de lambda expression
@@ -55,7 +55,7 @@ namespace Stone.Dominio.InterfacesDosRepositorios
         /// <summary>
         /// Método responsável por salvar alterações
         /// </summary>
-        /// <returns></returns>
-        Task<int> SaveChanges();
+        /// <returns>Confirmação</returns>
+        Task<bool> SaveChanges();
     }
 }

@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Stone.Dominio.Classes;
 using Stone.Dominio.DTO;
+using Stone.Dominio.Excecoes;
 using Stone.Servico.Base;
 using Stone.Servico.Extensoes;
 using Stone.Servico.Interfaces;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,21 +24,27 @@ namespace Stone.Servico.Classes
         /// <summary>
         /// Administrador de login
         /// </summary>
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<Usuario> _signInManager;
 
         /// <summary>
         /// Administrador de usuário
         /// </summary>
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Usuario> _userManager;
 
         /// <summary>
         /// Instância de um objeto App Settings
         /// </summary>
         private readonly AppSettings _appSettings;
 
-
-        public ServicoDeAuth(SignInManager<IdentityUser> signInManager,
-                              UserManager<IdentityUser> userManager,
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="signInManager"></param>
+        /// <param name="userManager"></param>
+        /// <param name="appSettings"></param>
+        /// <param name="mapper"></param>
+        public ServicoDeAuth(SignInManager<Usuario> signInManager,
+                              UserManager<Usuario> userManager,
                               IOptions<AppSettings> appSettings,
                               IMapper mapper) : base (mapper)
         {
@@ -50,9 +59,11 @@ namespace Stone.Servico.Classes
         /// <param name="usuarioDeRegistro">Usuário para registro</param>
         /// <param name="password">Senha</param>
         /// <returns>Identity Result</returns>
-        public async Task<IdentityResult> Registrar(UsuarioPersonalizadoDTO usuarioDeRegistro, string password)
+        public async Task<RespostaDoLoginDTO> Registrar(UsuarioDeRegistroDTO usuarioDeRegistro)
         {
-            return await _userManager.CreateAsync(usuarioDeRegistro, password);
+            var result = await _userManager.CreateAsync(Usuario.Create(usuarioDeRegistro), usuarioDeRegistro.Password);
+            VerificarErros(result);
+            return await GerarJwt(usuarioDeRegistro.Email);
         }
 
         /// <summary>
@@ -60,19 +71,11 @@ namespace Stone.Servico.Classes
         /// </summary>
         /// <param name="usuarioDeLogin">Usuário</param>
         /// <returns>Resultado de Login</returns>
-        public async Task<SignInResult> Login(UsuarioDeLoginDTO usuarioDeLogin)
+        public async Task<RespostaDoLoginDTO> Login(UsuarioDeLoginDTO usuarioDeLogin)
         {
-            return await _signInManager.PasswordSignInAsync(usuarioDeLogin.Email, usuarioDeLogin.Password, false, true);
-        }
-
-        /// <summary>
-        /// Método responsável por logar um usuário sem autenticação
-        /// </summary>
-        /// <param name="usuario">Usuário</param>
-        /// <returns>Usuário do Identity</returns>
-        public async Task LogarUsuario(UsuarioPersonalizadoDTO usuario)
-        {
-            await _signInManager.SignInAsync(usuario, false);
+            var result = await _signInManager.PasswordSignInAsync(usuarioDeLogin.Email, usuarioDeLogin.Password, false, true);
+            if (!result.Succeeded) throw new ExcecaoDeNegocio("Usuário ou Senha inválidos");
+            return await GerarJwt(usuarioDeLogin.Email);
         }
 
         /// <summary>
@@ -80,7 +83,7 @@ namespace Stone.Servico.Classes
         /// </summary>
         /// <param name="email">Email do usuário</param>
         /// <returns>Modelo de resposta do login</returns>
-        public async Task<RespostaDoLoginDTO> GerarJwt(string email)
+        private async Task<RespostaDoLoginDTO> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -101,12 +104,22 @@ namespace Stone.Servico.Classes
                 TempoDeExpiracao = TimeSpan.FromHours(_appSettings.ExpiracaoHoras).TotalSeconds,
                 TokenDeUsuario = new TokenDeUsuarioDTO
                 {
-                    Id = user.Id,
+                    Id = user.Id.ToString(),
                     Email = user.Email,
                 }
             };
 
             return response;
+        }
+
+        /// <summary>
+        /// Método para verificar se existe erros no Identity Result
+        /// </summary>
+        /// <param name="result">Identity Result</param>
+        private void VerificarErros(IdentityResult result)
+        {
+            if (!result.Succeeded)
+                throw new ExcecaoDeValidacao(result.Errors.Select(e => e.Description).Distinct().ToList());
         }
     }
 }

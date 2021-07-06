@@ -5,7 +5,7 @@ using Stone.Dominio.DTO;
 namespace Stone.Servico.AutoMapper
 {
     /// <summary>
-    /// Classe de 
+    /// Classe de Mapeamento
     /// </summary>
     public static class Mapper
     {
@@ -17,6 +17,7 @@ namespace Stone.Servico.AutoMapper
         {
             profile.CreateMap<Usuario, UsuarioDTO>()
                    .ReverseMap();
+
             profile.CreateMap<Endereco, EnderecoDTO>()
                    .ReverseMap();
 

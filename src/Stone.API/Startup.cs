@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Stone.API.Configuration;
+using Stone.Utilitarios.Filtros.Excecao;
 
 namespace Stone.API
 {
@@ -24,11 +25,12 @@ namespace Stone.API
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
-            services.AddControllers()
+            services.AddControllers(options =>
+                    options.Filters.Add(typeof(ApiExcecaoFiltros)))
             .AddFluentValidation(fv =>
             {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-            });
+            }));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Desafio Stone", Version = "v1" });

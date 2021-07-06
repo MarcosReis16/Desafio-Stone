@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Stone.Dominio.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -12,21 +13,25 @@ namespace Stone.Dominio.Classes
         /// <summary>
         /// Nome
         /// </summary>
+        [PersonalData]
         public string Nome { get; private set; }
 
         /// <summary>
         /// Cpf
         /// </summary>
+        [PersonalData]
         public string Cpf { get; private set; }
 
         /// <summary>
         /// Data de Nascimento
         /// </summary>
+        [PersonalData]
         public DateTime DataDeNascimento { get; private set; }
 
         /// <summary>
         /// Sexo
         /// </summary>
+        [PersonalData]
         public int Sexo { get; private set; }
 
         /// <summary>
@@ -47,10 +52,27 @@ namespace Stone.Dominio.Classes
         /// <summary>
         /// Construtor padrão
         /// </summary>
-        public Usuario()
+        public Usuario() : base ()
         {
             Id = Guid.NewGuid();
         }
+
+        /// <summary>
+        /// Método para criar um usuário identity
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public static Usuario Create(UsuarioDeRegistroDTO usuario) => new()
+        {
+            Id = Guid.NewGuid(),
+            Email = usuario.Email,
+            EmailConfirmed = true,
+            UserName = usuario.Email,
+            Nome = usuario.Nome,
+            Cpf = usuario.Cpf,
+            DataDeNascimento = usuario.DataDeNascimento,
+            Sexo = usuario.Sexo
+        };
 
     }
 }

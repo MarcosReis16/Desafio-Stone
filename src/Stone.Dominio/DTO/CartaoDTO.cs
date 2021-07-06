@@ -41,7 +41,7 @@ namespace Stone.Dominio.DTO
         /// <summary>
         /// Usuário
         /// </summary>
-        public UsuarioPersonalizadoDTO Usuario { get; set; }
+        public UsuarioDTO Usuario { get; set; }
 
         /// <summary>
         /// Transações que o cartão foi utilizado

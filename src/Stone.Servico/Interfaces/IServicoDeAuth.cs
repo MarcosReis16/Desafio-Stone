@@ -13,9 +13,8 @@ namespace Stone.Servico.Interfaces
         /// Método responsável por registrar um usuário
         /// </summary>
         /// <param name="usuarioDeRegistro">Usuário para registro</param>
-        /// <param name="password">Senha</param>
         /// <returns>Identity Result</returns>
-        Task<IdentityResult> Registrar(UsuarioPersonalizadoDTO usuarioDeRegistro, string password);
+        Task<IdentityResult> Registrar(UsuarioDeRegistroDTO usuarioDeRegistro);
 
         /// <summary>
         /// Método responsável por logar um usuário
@@ -29,7 +28,7 @@ namespace Stone.Servico.Interfaces
         /// </summary>
         /// <param name="usuario">Usuário</param>
         /// <returns>Usuário do Identity</returns>
-        Task LogarUsuario(UsuarioPersonalizadoDTO usuario);
+        Task LogarUsuario(UsuarioDeRegistroDTO usuario);
 
         /// <summary>
         /// Método responsável para gerar o Token JWT

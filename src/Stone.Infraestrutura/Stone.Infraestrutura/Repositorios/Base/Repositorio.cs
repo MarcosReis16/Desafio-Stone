@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Stone.Dominio.Excecoes;
 using Stone.Dominio.InterfacesDosRepositorios;
 using Stone.Infraestrutura.Contextos;
 using System;
@@ -42,7 +43,14 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// <returns>Lista de Entidades</returns>
         public virtual async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
         {
-            return await DbSet.Where(predicate).ToListAsync();
+            try
+            {
+                return await DbSet.Where(predicate).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
 
         /// <summary>
@@ -52,7 +60,14 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// <returns>Entidade</returns>
         public virtual async Task<TEntity> ObterPorId(Guid id)
         {
-            return await DbSet.FindAsync(id);
+            try
+            {
+                return await DbSet.FindAsync(id);
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
 
         /// <summary>
@@ -61,7 +76,14 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// <returns>Lista de entidades</returns>
         public virtual async Task<IEnumerable<TEntity>> ObterTodos()
         {
-            return await DbSet.ToListAsync();
+            try
+            {
+                return await DbSet.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
 
         /// <summary>
@@ -69,10 +91,17 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// </summary>
         /// <param name="entity">Entidade genérica</param>
         /// <returns></returns>
-        public virtual async Task Adicionar(TEntity entity)
+        public virtual async Task<bool> Adicionar(TEntity entity)
         {
-            await DbSet.AddAsync(entity);
-            await SaveChanges();
+            try
+            {
+                await DbSet.AddAsync(entity);
+                return await SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
 
         /// <summary>
@@ -80,10 +109,17 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// </summary>
         /// <param name="entity">Entidade genérica</param>
         /// <returns></returns>
-        public virtual async Task Atualizar(TEntity entity)
+        public virtual async Task<bool> Atualizar(TEntity entity)
         {
-            DbSet.Update(entity);
-            await SaveChanges();
+            try
+            {
+                DbSet.Update(entity);
+                return await SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
 
         /// <summary>
@@ -91,23 +127,38 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// </summary>
         /// <param name="id">Identificador da entidade</param>
         /// <returns></returns>
-        public virtual async Task Remover(Guid id)
+        public virtual async Task<bool> Remover(Guid id)
         {
-            TEntity entity = await DbSet.FindAsync(id);
-            if(entity != null)
+            try
             {
-                DbSet.Remove(entity);
-                await SaveChanges();
+                TEntity entity = await DbSet.FindAsync(id);
+                if (entity != null)
+                {
+                    DbSet.Remove(entity);
+                    return await SaveChanges();
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
             }
         }
 
         /// <summary>
         /// Método responsável por salvar alterações
         /// </summary>
-        /// <returns></returns>
-        public virtual async Task<int> SaveChanges()
+        /// <returns>Confirmação</returns>
+        public virtual async Task<bool> SaveChanges()
         {
-            return await Db.SaveChangesAsync();
+            try
+            {
+                return await Db.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ExcecaoDeErroInterno(ex);
+            }
         }
         
         /// <summary>

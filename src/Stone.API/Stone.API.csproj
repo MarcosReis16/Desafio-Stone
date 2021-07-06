@@ -27,13 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validadores\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Stone.Infraestrutura\Stone.Infraestrutura\Stone.Infraestrutura.csproj" />
     <ProjectReference Include="..\Stone.Servico\Stone.Servico.csproj" />
+    <ProjectReference Include="..\Stone.Utilitarios\Stone.Utilitarios.csproj" />
   </ItemGroup>
 
   <ItemGroup>
