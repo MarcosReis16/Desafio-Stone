@@ -57,8 +57,7 @@ namespace Stone.Servico.Classes
         /// Método responsável por registrar um usuário
         /// </summary>
         /// <param name="usuarioDeRegistro">Usuário para registro</param>
-        /// <param name="password">Senha</param>
-        /// <returns>Identity Result</returns>
+        /// <returns>Objeto de Resposta</returns>
         public async Task<RespostaDoLoginDTO> Registrar(UsuarioDeRegistroDTO usuarioDeRegistro)
         {
             var result = await _userManager.CreateAsync(Usuario.Create(usuarioDeRegistro), usuarioDeRegistro.Password);
