@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Mensagens\MensagensDeLog.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation" Version="9.5.4" />
@@ -23,13 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Validadores\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Stone.Infraestrutura\Stone.Infraestrutura\Stone.Infraestrutura.csproj" />
     <ProjectReference Include="..\Stone.Servico\Stone.Servico.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Mensagens\MensagensDeLog.resx" />
   </ItemGroup>
 
 </Project>
