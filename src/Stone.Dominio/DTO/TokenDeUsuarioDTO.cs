@@ -1,9 +1,9 @@
-﻿namespace Stone.API.ViewModel
+﻿namespace Stone.Dominio.DTO
 {
     /// <summary>
     /// Classe responsáverl pelo Token de Usuário
     /// </summary>
-    public class TokenDeUsuarioViewModel
+    public class TokenDeUsuarioDTO
     {
         /// <summary>
         /// Id

@@ -1,9 +1,9 @@
-﻿namespace Stone.API.ViewModel
+﻿namespace Stone.Dominio.DTO
 {
     /// <summary>
     /// Resposta do Login
     /// </summary>
-    public class RespostaDoLoginViewModel
+    public class RespostaDoLoginDTO
     {
         /// <summary>
         /// Token de acesso
@@ -18,6 +18,6 @@
         /// <summary>
         /// Objeto Token de Usuário
         /// </summary>
-        public TokenDeUsuarioViewModel TokenDeUsuario { get; set; }
+        public TokenDeUsuarioDTO TokenDeUsuario { get; set; }
     }
 }

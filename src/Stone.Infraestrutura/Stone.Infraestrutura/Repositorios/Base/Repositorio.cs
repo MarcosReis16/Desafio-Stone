@@ -13,7 +13,7 @@ namespace Stone.Infraestrutura.Repositorios.Base
     /// Repositório genérico
     /// </summary>
     /// <typeparam name="TEntity">Entidade genérica</typeparam>
-    public class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : class
+    public abstract class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : class
     {
         /// <summary>
         /// Instância do contexto
@@ -40,7 +40,7 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// </summary>
         /// <param name="predicate">Expressão lambda</param>
         /// <returns>Lista de Entidades</returns>
-        public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
+        public virtual async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
         {
             return await DbSet.Where(predicate).ToListAsync();
         }
@@ -98,7 +98,6 @@ namespace Stone.Infraestrutura.Repositorios.Base
             {
                 DbSet.Remove(entity);
                 await SaveChanges();
-
             }
         }
 
@@ -106,7 +105,7 @@ namespace Stone.Infraestrutura.Repositorios.Base
         /// Método responsável por salvar alterações
         /// </summary>
         /// <returns></returns>
-        public async Task<int> SaveChanges()
+        public virtual async Task<int> SaveChanges()
         {
             return await Db.SaveChangesAsync();
         }

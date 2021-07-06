@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Stone.API.ViewModel
+namespace Stone.Dominio.DTO
 {
     /// <summary>
     /// Classe responsável por um registro de usuário
     /// </summary>
-    public class UsuarioDeRegistroViewModel
+    public class UsuarioDeRegistroDTO
     {
         /// <summary>
         /// Email

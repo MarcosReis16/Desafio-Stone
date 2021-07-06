@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Stone.API.Controllers.Base;
-using Stone.API.Extensions;
-using Stone.API.ViewModel;
+using Stone.Dominio.DTO;
 using Stone.Dominio.Interfaces;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using Stone.Servico.Interfaces;
 using System.Threading.Tasks;
 
 namespace Stone.API.Controllers
@@ -22,43 +17,21 @@ namespace Stone.API.Controllers
     public class AuthController : MainController
     {
         /// <summary>
-        /// Instância de um objeto App Settings
+        /// Instância do serviço de autenticação
         /// </summary>
-        private readonly AppSettings _appSettings;
-
-        /// <summary>
-        /// instância de um objeto User Manager
-        /// </summary>
-        private readonly UserManager<IdentityUser> _userManager;
-
-        /// <summary>
-        /// Instância de um objeto SignInManager
-        /// </summary>
-        private readonly SignInManager<IdentityUser> _signInManager;
-
-        /// <summary>
-        /// Instância de um objeto de Log
-        /// </summary>
-        private readonly ILogger _logger;
+        private readonly IServicoDeAuth _servicoDeAuth;
 
         /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="notificador">Instância de um notificador</param>
-        /// <param name="signInManager">Instância de um SignInManager</param>
-        /// <param name="userManager">Instância de User Manager</param>
-        /// <param name="appSettings">Instância de um App settings</param>
         /// <param name="logger">Instância de um objeto de Log</param>
+        /// <param name="servicoDeAuth">Instância de um serviço de autenticação</param>
         public AuthController(INotificador notificador,
-                              SignInManager<IdentityUser> signInManager,
-                              UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings,
-                              ILogger logger) : base (notificador)
+                              ILogger logger,
+                              IServicoDeAuth servicoDeAuth) : base (notificador, logger)
         {
-            _appSettings = appSettings.Value;
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _logger = logger;
+            _servicoDeAuth = servicoDeAuth;
         }
 
         /// <summary>
@@ -67,9 +40,9 @@ namespace Stone.API.Controllers
         /// <param name="usuarioDeRegistro">Usuário de Registro</param>
         /// <returns>Custom Response</returns>
         [HttpPost("registrar")]
-        public async Task<IActionResult> Registrar(UsuarioDeRegistroViewModel usuarioDeRegistro)
+        public async Task<IActionResult> Registrar(UsuarioDeRegistroDTO usuarioDeRegistro)
         {
-            UsuarioPersonalizadoViewModel user = new()
+            UsuarioPersonalizadoDTO user = new()
             {
                 UserName = usuarioDeRegistro.Email,
                 Email = usuarioDeRegistro.Email,
@@ -80,21 +53,8 @@ namespace Stone.API.Controllers
                 Sexo = usuarioDeRegistro.Sexo,
             };
 
-            var result = await _userManager.CreateAsync(user, usuarioDeRegistro.Password);
-
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("Usuário registrado com sucesso");
-                await _signInManager.SignInAsync(user, false);
-                return CustomResponse(await GerarJwt(user.Email));
-            }
-            foreach (var error in result.Errors)
-            {
-                NotificarErro(error.Description);
-            }
-
-            return CustomResponse(usuarioDeRegistro);
-
+            var result = await _servicoDeAuth.Registrar(user, usuarioDeRegistro.Password);
+            return await ConfirmacaoDeRegistro(usuarioDeRegistro, user, result);
         }
 
         /// <summary>
@@ -103,19 +63,53 @@ namespace Stone.API.Controllers
         /// <param name="usuarioDeLogin">Usuário de Login</param>
         /// <returns>Resposta customizada com token JWT</returns>
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UsuarioDeLoginViewModel usuarioDeLogin)
+        public async Task<IActionResult> Login(UsuarioDeLoginDTO usuarioDeLogin)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(usuarioDeLogin.Email, usuarioDeLogin.Password, false, true);
+            var result = await _servicoDeAuth.Login(usuarioDeLogin);
+            return await ConfirmacaoDeLogin(usuarioDeLogin, result);
+        }
 
+        /// <summary>
+        /// Método para confirmar se o retorno do Identity para o registro foi positivo ou houve erros
+        /// </summary>
+        /// <param name="usuarioDeRegistro">Usuário de registro</param>
+        /// <param name="user">Usuário Identity</param>
+        /// <param name="result">Resultado do Identity</param>
+        /// <returns>Custon Response</returns>
+        private async Task<IActionResult> ConfirmacaoDeRegistro(UsuarioDeRegistroDTO usuarioDeRegistro, UsuarioPersonalizadoDTO user, IdentityResult result)
+        {
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("Usuário registrado com sucesso");
+                await _servicoDeAuth.LogarUsuario(user);
+                return CustomResponse(await _servicoDeAuth.GerarJwt(user.Email));
+            }
+            foreach (var error in result.Errors)
+            {
+                NotificarErro(error.Description);
+            }
+
+            return CustomResponse(usuarioDeRegistro);
+        }
+
+        /// <summary>
+        /// Método para confirmar o retorno do Identity para o Login
+        /// </summary>
+        /// <param name="usuarioDeLogin">Usuario de Login</param>
+        /// <param name="result">Resultado de Login</param>
+        /// <returns>Custom Response</returns>
+        private async Task<IActionResult> ConfirmacaoDeLogin(UsuarioDeLoginDTO usuarioDeLogin, Microsoft.AspNetCore.Identity.SignInResult result)
+        {
             if (result.Succeeded)
             {
                 _logger.LogInformation("Usuario " + usuarioDeLogin.Email + " logado com sucesso");
-                return CustomResponse(await GerarJwt(usuarioDeLogin.Email));
+                return CustomResponse(await _servicoDeAuth.GerarJwt(usuarioDeLogin.Email));
             }
             if (result.IsLockedOut)
             {
+                _logger.LogInformation("Usuário temporariamente bloqueado por tentativas inválidas");
                 NotificarErro("Usuário temporariamente bloqueado por tentativas inválidas");
                 return CustomResponse(usuarioDeLogin);
             }
@@ -124,39 +118,5 @@ namespace Stone.API.Controllers
             return CustomResponse(usuarioDeLogin);
         }
 
-        /// <summary>
-        /// Método responsável para gerar o Token JWT
-        /// </summary>
-        /// <param name="email">Email do usuário</param>
-        /// <returns>Modelo de resposta do login</returns>
-        private async Task<RespostaDoLoginViewModel> GerarJwt(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
-            {
-                Issuer = _appSettings.Emissor,
-                Audience = _appSettings.ValidoEm,
-                Expires = DateTime.UtcNow.AddHours(_appSettings.ExpiracaoHoras),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            });
-
-            var encodedToken = tokenHandler.WriteToken(token);
-
-            var response = new RespostaDoLoginViewModel
-            {
-                TokenDeAcesso = encodedToken,
-                TempoDeExpiracao = TimeSpan.FromHours(_appSettings.ExpiracaoHoras).TotalSeconds,
-                TokenDeUsuario = new TokenDeUsuarioViewModel
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                }
-            };
-
-            return response;
-        }
     }
 }

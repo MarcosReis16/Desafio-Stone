@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Logging;
 using Stone.Dominio.Interfaces;
 using Stone.Dominio.Notificacoes;
 using System.Linq;
@@ -15,14 +16,23 @@ namespace Stone.API.Controllers.Base
         /// <summary>
         /// Notificador customizado
         /// </summary>
-        private readonly INotificador _notificador;
+        protected readonly INotificador _notificador;
+
+        /// <summary>
+        /// Instância de um objeto de Log
+        /// </summary>
+        protected readonly ILogger _logger;
 
         /// <summary>
         /// Construtor
         /// </summary>
-        public MainController(INotificador notificador)
+        /// <param name="notificador">Instância de um notificador</param>
+        /// <param name="logger">Instância de um Logger</param>
+        protected MainController(INotificador notificador,
+                                 ILogger logger)
         {
             _notificador = notificador;
+            _logger = logger;
         }
 
         /// <summary>

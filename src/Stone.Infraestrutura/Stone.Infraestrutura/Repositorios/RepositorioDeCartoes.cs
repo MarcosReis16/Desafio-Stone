@@ -1,47 +1,22 @@
 ﻿using Stone.Dominio.Classes;
 using Stone.Dominio.InterfacesDosRepositorios;
-using System;
-using System.Threading.Tasks;
+using Stone.Infraestrutura.Contextos;
+using Stone.Infraestrutura.Repositorios.Base;
 
 namespace Stone.Infraestrutura.Repositorios
 {
     /// <summary>
     /// Repositório da entidade cartão
     /// </summary>
-    public class RepositorioDeCartoes : IRepositorioDeCartoes
+    public class RepositorioDeCartoes : Repositorio<Cartao>, IRepositorioDeCartoes
     {
-        /// <summary>
-        /// Instância do repositório genérico para cartão
-        /// </summary>
-        private readonly IRepositorio<Cartao> _repositorio;
-
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="repositorio">Instância do repositório genérico para cartão</param>
-        public RepositorioDeCartoes(IRepositorio<Cartao> repositorio)
+        /// <param name="db">Contexto</param>
+        public RepositorioDeCartoes(MeuDbContext db) : base (db)
         {
-            _repositorio = repositorio;
-        }
 
-        /// <summary>
-        /// Método responsável por adicionar um cartão na base
-        /// </summary>
-        /// <param name="cartao">Cartão</param>
-        /// <returns></returns>
-        public async Task Adicionar(Cartao cartao)
-        {
-            await _repositorio.Adicionar(cartao);
-        }
-
-        /// <summary>
-        /// Método responsável por apagar um cartão da base
-        /// </summary>
-        /// <param name="id">Identificador do cartão</param>
-        /// <returns></returns>
-        public async Task Excluir(Guid id)
-        {
-            await _repositorio.Remover(id);
         }
     }
 }

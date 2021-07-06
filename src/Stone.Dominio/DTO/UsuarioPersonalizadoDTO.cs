@@ -1,46 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Stone.Dominio.DTO
 {
     /// <summary>
-    /// Usuário DTO
+    /// Classe do usuário personalizada
     /// </summary>
-    public class UsuarioDTO
+    public class UsuarioPersonalizadoDTO : IdentityUser
     {
-        /// <summary>
-        /// Id do usuário
-        /// </summary>
-        public Guid? Id { get; set; }
-
         /// <summary>
         /// Nome
         /// </summary>
+        [PersonalData]
         public string Nome { get; set; }
 
         /// <summary>
         /// Cpf
         /// </summary>
+        [PersonalData]
         public string Cpf { get; set; }
 
         /// <summary>
         /// Data de Nascimento
         /// </summary>
+        [PersonalData]
         public DateTime DataDeNascimento { get; set; }
 
         /// <summary>
         /// Sexo
         /// </summary>
+        [PersonalData]
         public int Sexo { get; set; }
-
-        /// <summary>
-        /// Endereço
-        /// </summary>
-        public EnderecoDTO Endereco { get; set; }
-
-        /// <summary>
-        /// Compras feitas pelo usuário
-        /// </summary>
-        public IList<TransacaoDTO> Compras { get; set; }
     }
 }

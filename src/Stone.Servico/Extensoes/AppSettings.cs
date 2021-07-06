@@ -1,4 +1,4 @@
-﻿namespace Stone.API.Extensions
+﻿namespace Stone.Servico.Extensoes
 {
     /// <summary>
     /// Classe para receber as informações do appSettings.json

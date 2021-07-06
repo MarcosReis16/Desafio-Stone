@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Stone.API.ViewModel
+namespace Stone.Dominio.DTO
 {
     /// <summary>
     /// Usuário de Login View Model
     /// </summary>
-    public class UsuarioDeLoginViewModel
+    public class UsuarioDeLoginDTO
     {
         /// <summary>
         /// Email do usuário

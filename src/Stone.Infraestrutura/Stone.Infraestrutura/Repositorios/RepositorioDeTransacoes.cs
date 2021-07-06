@@ -1,36 +1,22 @@
 ﻿using Stone.Dominio.Classes;
 using Stone.Dominio.InterfacesDosRepositorios;
-using System.Threading.Tasks;
+using Stone.Infraestrutura.Contextos;
+using Stone.Infraestrutura.Repositorios.Base;
 
 namespace Stone.Infraestrutura.Repositorios
 {
     /// <summary>
     /// Repositório de transações
     /// </summary>
-    public class RepositorioDeTransacoes : IRepositorioDeTransacoes
+    public class RepositorioDeTransacoes : Repositorio<Transacao>, IRepositorioDeTransacoes
     {
-        /// <summary>
-        /// Instância do repositório genérico para transações
-        /// </summary>
-        private readonly IRepositorio<Transacao> _repositorio;
-
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="repositorio">Instância do repositório genérico para transações</param>
-        public RepositorioDeTransacoes(IRepositorio<Transacao> repositorio)
+        public RepositorioDeTransacoes(MeuDbContext db) : base (db)
         {
-            _repositorio = repositorio;
+
         }
 
-        /// <summary>
-        /// Método responsável por inserir uma transação
-        /// </summary>
-        /// <param name="transacao">Transação</param>
-        /// <returns></returns>
-        public async Task Adicionar(Transacao transacao)
-        {
-            await _repositorio.Adicionar(transacao);
-        }
     }
 }
