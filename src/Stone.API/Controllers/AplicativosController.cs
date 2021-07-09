@@ -28,6 +28,10 @@ namespace Stone.API.Controllers
         /// </summary>
         private readonly IMemoryCache _cache;
 
+        /// <summary>
+        /// Configurações de Cache
+        /// </summary>
+        private readonly MemoryCacheEntryOptions _configuracoesDeCache;
 
         /// <summary>
         /// Construtor
@@ -39,6 +43,11 @@ namespace Stone.API.Controllers
         {
             _servicoDeAplicativos = servicoDeAplicativos;
             _cache = cache;
+            _configuracoesDeCache = new()
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
+                SlidingExpiration = TimeSpan.FromMinutes(10)
+            };
         }
 
         /// <summary>
@@ -56,13 +65,7 @@ namespace Stone.API.Controllers
 
             aplicativos = await _servicoDeAplicativos.ObterTodos();
 
-            MemoryCacheEntryOptions memoryCacheEntryOptions = new()
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30),
-                SlidingExpiration = TimeSpan.FromMinutes(10)
-            };
-
-            _cache.Set(Constantes.APLICATIVOS_KEY, aplicativos, memoryCacheEntryOptions);
+            _cache.Set(Constantes.APLICATIVOS_KEY, aplicativos, _configuracoesDeCache);
 
             return Ok(aplicativos);
         }

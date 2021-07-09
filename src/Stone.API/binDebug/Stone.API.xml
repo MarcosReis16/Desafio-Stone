@@ -66,6 +66,11 @@
             Cache de memória
             </summary>
         </member>
+        <member name="F:Stone.API.Controllers.AplicativosController._configuracoesDeCache">
+            <summary>
+            Configurações de Cache
+            </summary>
+        </member>
         <member name="M:Stone.API.Controllers.AplicativosController.#ctor(Stone.Servico.Interfaces.IServicoDeAplicativos,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
             <summary>
             Construtor
