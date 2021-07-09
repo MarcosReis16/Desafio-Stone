@@ -21,14 +21,17 @@ namespace Stone.Servico.AutoMapper
             profile.CreateMap<Endereco, EnderecoDTO>()
                    .ReverseMap();
 
+            profile.CreateMap<Aplicativo, AplicativoDTO>()
+                   .ReverseMap();
+
             profile.CreateMap<Transacao, TransacaoDTO>()
-                   .ForMember(t => t.Usuario.Id, t => t.MapFrom(tr => tr.IdUsuario))
-                   .ForMember(t => t.Aplicativo.Id, t => t.MapFrom(tr => tr.IdAplicativo))
-                   .ForMember(t => t.Cartao.Id, t => t.MapFrom(tr => tr.IdCartao))
+                   .ForPath(t => t.Usuario.Id, t => t.MapFrom(tr => tr.IdUsuario))
+                   .ForPath(t => t.Aplicativo.Id, t => t.MapFrom(tr => tr.IdAplicativo))
+                   .ForPath(t => t.Cartao.Id, t => t.MapFrom(tr => tr.IdCartao))
                    .ReverseMap();
 
             profile.CreateMap<Cartao, CartaoDTO>()
-                   .ForMember(c => c.Usuario.Id, act => act.MapFrom(src => src.IdUsuario))
+                   .ForPath(c => c.Usuario.Id, act => act.MapFrom(src => src.IdUsuario))
                    .ReverseMap();
         }
     }

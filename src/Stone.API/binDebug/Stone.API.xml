@@ -51,6 +51,34 @@
             <param name="services">Services</param>
             <returns></returns>
         </member>
+        <member name="T:Stone.API.Controllers.AplicativosController">
+            <summary>
+            Controller de Aplicativos
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.AplicativosController._servicoDeAplicativos">
+            <summary>
+            Instância do serviço de aplicativos
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.AplicativosController._cache">
+            <summary>
+            Cache de memória
+            </summary>
+        </member>
+        <member name="M:Stone.API.Controllers.AplicativosController.#ctor(Stone.Servico.Interfaces.IServicoDeAplicativos,Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="servicoDeAplicativos">Instância do serviço de aplicativos</param>
+            <param name="cache">Cache de memória</param>
+        </member>
+        <member name="M:Stone.API.Controllers.AplicativosController.ObterTodos">
+            <summary>
+            Endpoint responsável por obter todos os aplicativos
+            </summary>
+            <returns>Lista de aplicativos</returns>
+        </member>
         <member name="T:Stone.API.Controllers.AuthController">
             <summary>
             Controller de autenticação
@@ -61,16 +89,10 @@
             Instância do serviço de autenticação
             </summary>
         </member>
-        <member name="F:Stone.API.Controllers.AuthController._logger">
-            <summary>
-            Instância de um objeto de Log
-            </summary>
-        </member>
-        <member name="M:Stone.API.Controllers.AuthController.#ctor(Microsoft.Extensions.Logging.ILogger{Stone.API.Controllers.AuthController},Stone.Servico.Interfaces.IServicoDeAuth)">
+        <member name="M:Stone.API.Controllers.AuthController.#ctor(Stone.Servico.Interfaces.IServicoDeAuth)">
             <summary>
             Construtor
             </summary>
-            <param name="logger">Instância de um objeto de Log</param>
             <param name="servicoDeAuth">Instância de um serviço de autenticação</param>
         </member>
         <member name="M:Stone.API.Controllers.AuthController.Registrar(Stone.Dominio.DTO.UsuarioDeRegistroDTO)">
@@ -131,6 +153,35 @@
             Endpoint responsável por obter uma transação por Id
             </summary>
             <returns>Transação</returns>
+        </member>
+        <member name="T:Stone.API.Startup">
+            <summary>
+            Classe Startup
+            </summary>
+        </member>
+        <member name="P:Stone.API.Startup.Configuration">
+            <summary>
+            Instância de configuração
+            </summary>
+        </member>
+        <member name="M:Stone.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="configuration">Instância de configuração</param>
+        </member>
+        <member name="M:Stone.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configurar Serviços
+            </summary>
+            <param name="services">Serviços</param>
+        </member>
+        <member name="M:Stone.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configuração da aplicação
+            </summary>
+            <param name="app">Administrador da aplicação</param>
+            <param name="env">Web Host ambiente</param>
         </member>
     </members>
 </doc>

@@ -1,30 +1,37 @@
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Stone.API.Configuration;
-using Stone.Servico.Extensoes;
 using Stone.Utilitarios.Filtros.Excecao;
-using System.Text;
 
 namespace Stone.API
 {
+    /// <summary>
+    /// Classe Startup
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Instância de configuração
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="configuration">Instância de configuração</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Configurar Serviços
+        /// </summary>
+        /// <param name="services">Serviços</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options => options.Filters.Add(typeof(ApiExcecaoFiltros)))
@@ -34,6 +41,8 @@ namespace Stone.API
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddMemoryCache();
+
             services.ResolveDependencies();
 
             services.ConfigurarAutenticacao(Configuration);
@@ -42,7 +51,11 @@ namespace Stone.API
             
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configuração da aplicação
+        /// </summary>
+        /// <param name="app">Administrador da aplicação</param>
+        /// <param name="env">Web Host ambiente</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

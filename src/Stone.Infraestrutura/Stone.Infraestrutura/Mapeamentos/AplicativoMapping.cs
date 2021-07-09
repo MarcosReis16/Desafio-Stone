@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Stone.Dominio.Classes;
+using System;
 
 namespace Stone.Infraestrutura.Mapeamentos
 {
@@ -16,6 +17,12 @@ namespace Stone.Infraestrutura.Mapeamentos
 
             builder.Property(a => a.Valor)
                    .IsRequired();
+
+            builder.HasData(
+                Aplicativo.Create(Guid.NewGuid(), "App1", 35),
+                Aplicativo.Create(Guid.NewGuid(), "App2", 12.5m),
+                Aplicativo.Create(Guid.NewGuid(), "App3", 7.8m)
+            );
 
             builder.ToTable("Aplicativos");
         }

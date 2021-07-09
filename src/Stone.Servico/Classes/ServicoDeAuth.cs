@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Stone.Dominio.Classes;
@@ -8,6 +9,7 @@ using Stone.Dominio.Excecoes;
 using Stone.Servico.Base;
 using Stone.Servico.Extensoes;
 using Stone.Servico.Interfaces;
+using Stone.Utilitarios.Mensagens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -39,14 +41,16 @@ namespace Stone.Servico.Classes
         /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="signInManager"></param>
-        /// <param name="userManager"></param>
-        /// <param name="appSettings"></param>
-        /// <param name="mapper"></param>
+        /// <param name="signInManager">Sign In Manager</param>
+        /// <param name="userManager">User Manager</param>
+        /// <param name="appSettings">App Settings</param>
+        /// <param name="mapper">Mapper</param>
+        /// <param name="logger">Logger</param>
         public ServicoDeAuth(SignInManager<Usuario> signInManager,
                               UserManager<Usuario> userManager,
                               IOptions<AppSettings> appSettings,
-                              IMapper mapper) : base (mapper)
+                              IMapper mapper,
+                              ILogger<ServicoDeAuth> logger) : base (mapper, logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -62,6 +66,7 @@ namespace Stone.Servico.Classes
         {
             var result = await _userManager.CreateAsync(Usuario.Create(usuarioDeRegistro), usuarioDeRegistro.Password);
             VerificarErros(result);
+            _logger.LogInformation(Mensagens.RegistroComSucesso);
             return await GerarJwt(usuarioDeRegistro.Email);
         }
 
@@ -74,6 +79,7 @@ namespace Stone.Servico.Classes
         {
             var result = await _signInManager.PasswordSignInAsync(usuarioDeLogin.Email, usuarioDeLogin.Password, false, true);
             if (!result.Succeeded) throw new ExcecaoDeNegocio("Usuário ou Senha inválidos");
+            _logger.LogInformation(Mensagens.LoginComSucesso);
             return await GerarJwt(usuarioDeLogin.Email);
         }
 

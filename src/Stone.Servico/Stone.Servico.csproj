@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stone.Dominio\Stone.Dominio.csproj" />
+    <ProjectReference Include="..\Stone.Utilitarios\Stone.Utilitarios.csproj" />
   </ItemGroup>
 
 </Project>

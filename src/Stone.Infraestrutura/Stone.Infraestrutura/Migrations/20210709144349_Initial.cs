@@ -228,7 +228,7 @@ namespace Stone.Infraestrutura.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transacao", x => new { x.IdUsuario, x.IdAplicativo, x.IdCartao });
+                    table.PrimaryKey("PK_Transacao", x => new { x.IdUsuario, x.IdAplicativo });
                     table.ForeignKey(
                         name: "FK_Transacao_Aplicativos_IdAplicativo",
                         column: x => x.IdAplicativo,
@@ -248,6 +248,21 @@ namespace Stone.Infraestrutura.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Aplicativos",
+                columns: new[] { "Id", "Nome", "Valor" },
+                values: new object[] { new Guid("9e2c2e76-3811-4ab9-b85a-2601341844c8"), "App1", 35m });
+
+            migrationBuilder.InsertData(
+                table: "Aplicativos",
+                columns: new[] { "Id", "Nome", "Valor" },
+                values: new object[] { new Guid("5c87ddda-fcbf-4eee-b396-035c200eb239"), "App2", 12.5m });
+
+            migrationBuilder.InsertData(
+                table: "Aplicativos",
+                columns: new[] { "Id", "Nome", "Valor" },
+                values: new object[] { new Guid("29c521dc-0db0-4432-8481-4beef403822e"), "App3", 7.8m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

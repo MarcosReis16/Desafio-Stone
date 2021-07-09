@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Stone.API.Controllers.Base;
 using Stone.Dominio.DTO;
 using Stone.Servico.Interfaces;
+using Stone.Utilitarios.Filtros.Excecao;
 using System.Threading.Tasks;
 
 namespace Stone.API.Controllers
@@ -20,20 +21,12 @@ namespace Stone.API.Controllers
         private readonly IServicoDeAuth _servicoDeAuth;
 
         /// <summary>
-        /// Instância de um objeto de Log
-        /// </summary>
-        private readonly ILogger _logger;
-
-        /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="logger">Instância de um objeto de Log</param>
         /// <param name="servicoDeAuth">Instância de um serviço de autenticação</param>
-        public AuthController(ILogger<AuthController> logger,
-                              IServicoDeAuth servicoDeAuth)
+        public AuthController(IServicoDeAuth servicoDeAuth)
         {
             _servicoDeAuth = servicoDeAuth;
-            _logger = logger;
         }
 
         /// <summary>
@@ -41,10 +34,13 @@ namespace Stone.API.Controllers
         /// </summary>
         /// <param name="usuarioDeRegistro">Usuário de Registro</param>
         /// <returns>Custom Response</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status500InternalServerError)]
         [HttpPost("registrar")]
         public async Task<IActionResult> Registrar(UsuarioDeRegistroDTO usuarioDeRegistro)
         {
-            return Ok(await _servicoDeAuth.Registrar(usuarioDeRegistro));
+            return Created(nameof(Registrar),await _servicoDeAuth.Registrar(usuarioDeRegistro));
         }
 
         /// <summary>
@@ -52,6 +48,9 @@ namespace Stone.API.Controllers
         /// </summary>
         /// <param name="usuarioDeLogin">Usuário de Login</param>
         /// <returns>Resposta customizada com token JWT</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status500InternalServerError)]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UsuarioDeLoginDTO usuarioDeLogin)
         {

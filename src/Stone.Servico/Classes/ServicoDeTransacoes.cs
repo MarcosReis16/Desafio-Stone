@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Stone.Dominio.Classes;
 using Stone.Dominio.DTO;
 using Stone.Dominio.InterfacesDosRepositorios;
 using Stone.Servico.Base;
 using Stone.Servico.Interfaces;
+using Stone.Utilitarios.Mensagens;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -26,7 +28,7 @@ namespace Stone.Servico.Classes
         /// <param name="repositorioDeTransacoes">Instância de um repositório de transações</param>
         /// <param name="mapper">Mapper</param>
         public ServicoDeTransacoes(IRepositorioDeTransacoes repositorioDeTransacoes,
-                                   IMapper mapper) : base (mapper)
+                                   IMapper mapper, ILogger<ServicoDeTransacoes> logger) : base (mapper, logger)
         {
             _repositorioDeTransacoes = repositorioDeTransacoes;
         }
@@ -38,7 +40,12 @@ namespace Stone.Servico.Classes
         /// <returns>Confirmação</returns>
         public async Task<bool> Adicionar(AdicionarTransacaoDTO transacao)
         {
-            return await _repositorioDeTransacoes.Adicionar(Transacao.Create(transacao));
+            if (await _repositorioDeTransacoes.Adicionar(Transacao.Create(transacao)))
+            {
+                _logger.LogInformation(Mensagens.IncluirTransacaoComSucesso);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

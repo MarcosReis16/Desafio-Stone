@@ -22,8 +22,10 @@ namespace Stone.API.Configuration
             services.AddScoped<MeuDbContext>();
             services.AddScoped<IRepositorioDeCartoes, RepositorioDeCartoes>();
             services.AddScoped<IRepositorioDeTransacoes, RepositorioDeTransacoes>();
+            services.AddScoped<IRepositorioDeAplicativos, RepositorioDeAplicativos>();
             services.AddScoped<IServicoDeAuth, ServicoDeAuth>();
             services.AddScoped<IServicoDeTransacoes, ServicoDeTransacoes>();
+            services.AddScoped<IServicoDeAplicativos, ServicoDeAplicativos>();
 
             return services;
         }

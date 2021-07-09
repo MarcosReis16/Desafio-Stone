@@ -164,6 +164,26 @@ namespace Stone.Infraestrutura.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Aplicativos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e2c2e76-3811-4ab9-b85a-2601341844c8"),
+                            Nome = "App1",
+                            Valor = 35m
+                        },
+                        new
+                        {
+                            Id = new Guid("5c87ddda-fcbf-4eee-b396-035c200eb239"),
+                            Nome = "App2",
+                            Valor = 12.5m
+                        },
+                        new
+                        {
+                            Id = new Guid("29c521dc-0db0-4432-8481-4beef403822e"),
+                            Nome = "App3",
+                            Valor = 7.8m
+                        });
                 });
 
             modelBuilder.Entity("Stone.Dominio.Classes.Cartao", b =>
@@ -260,7 +280,7 @@ namespace Stone.Infraestrutura.Migrations
                     b.Property<Guid>("IdCartao")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("IdUsuario", "IdAplicativo", "IdCartao");
+                    b.HasKey("IdUsuario", "IdAplicativo");
 
                     b.HasIndex("IdAplicativo");
 

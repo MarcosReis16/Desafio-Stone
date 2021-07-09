@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Stone.Servico.Base
 {
@@ -13,12 +14,20 @@ namespace Stone.Servico.Base
         protected readonly IMapper _mapper;
 
         /// <summary>
+        /// Instância do Logger
+        /// </summary>
+        protected readonly ILogger _logger;
+
+        /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="mapper">Instância do mapeador</param>
-        protected ServicoBase(IMapper mapper)
+        /// <param name="logger">Instância do Logger</param>
+        protected ServicoBase(IMapper mapper,
+                              ILogger logger)
         {
             _mapper = mapper;
+            _logger = logger;
         }
     }
 }
