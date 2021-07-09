@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stone.Dominio.DTO;
+using System;
 
 namespace Stone.Dominio.Classes
 {
@@ -36,5 +37,18 @@ namespace Stone.Dominio.Classes
         /// Cartão
         /// </summary>
         public Cartao Cartao { get; private set; }
+
+        /// <summary>
+        /// Método para criar uma transação
+        /// </summary>
+        /// <param name="transacao">Adicionar Transação</param>
+        /// <returns>Transação</returns>
+        public static Transacao Create(AdicionarTransacaoDTO transacao) => new()
+        {
+            IdUsuario = transacao.IdUsuario,
+            IdAplicativo = transacao.IdAplicativo,
+            IdCartao = transacao.Cartao.Id == null ? Guid.Empty : transacao.Cartao.Id.Value,
+            Cartao = transacao.Cartao.Id == null ? Cartao.Create(transacao.Cartao) : new Cartao(transacao.Cartao.Id.Value)
+        };
     }
 }

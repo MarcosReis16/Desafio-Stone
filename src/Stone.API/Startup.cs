@@ -2,12 +2,16 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Stone.API.Configuration;
+using Stone.Servico.Extensoes;
 using Stone.Utilitarios.Filtros.Excecao;
+using System.Text;
 
 namespace Stone.API
 {
@@ -23,25 +27,18 @@ namespace Stone.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+            services.AddControllers(options => options.Filters.Add(typeof(ApiExcecaoFiltros)))
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddControllers(options =>
-                    options.Filters.Add(typeof(ApiExcecaoFiltros)))
-            .AddFluentValidation(fv =>
-            {
-                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
-            }));
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Desafio Stone", Version = "v1" });
-            });
+            services.ConfigurarSwagger();
 
             services.AddAutoMapper(typeof(Startup));
 
             services.ResolveDependencies();
 
-            services.AddIdentityConfiguration(Configuration);
+            services.ConfigurarAutenticacao(Configuration);
 
+            services.AddIdentityConfiguration(Configuration);
             
         }
 

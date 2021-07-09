@@ -52,5 +52,7 @@ namespace Stone.Dominio.DTO
         /// </summary>
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public int Sexo { get; set; }
+
+        public EnderecoDTO Endereco { get; set; }
     }
 }

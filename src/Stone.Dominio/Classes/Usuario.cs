@@ -71,7 +71,8 @@ namespace Stone.Dominio.Classes
             Nome = usuario.Nome,
             Cpf = usuario.Cpf,
             DataDeNascimento = usuario.DataDeNascimento,
-            Sexo = usuario.Sexo
+            Sexo = usuario.Sexo,
+            Endereco = new Endereco(usuario.Endereco),
         };
 
     }

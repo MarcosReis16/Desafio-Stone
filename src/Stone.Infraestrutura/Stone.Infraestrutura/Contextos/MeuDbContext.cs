@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Stone.Dominio.Classes;
+using System;
 using System.Linq;
 
 namespace Stone.Infraestrutura.Contextos
@@ -8,7 +11,7 @@ namespace Stone.Infraestrutura.Contextos
     /// <summary>
     /// Classe responsável pelo contexto da aplicação
     /// </summary>
-    public class MeuDbContext : IdentityDbContext
+    public class MeuDbContext : IdentityDbContext<Usuario, IdentityRole<Guid>, Guid>
     {
         /// <summary>
         /// Construtor

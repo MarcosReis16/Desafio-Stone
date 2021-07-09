@@ -20,15 +20,20 @@ namespace Stone.API.Controllers
         private readonly IServicoDeAuth _servicoDeAuth;
 
         /// <summary>
+        /// Instância de um objeto de Log
+        /// </summary>
+        private readonly ILogger _logger;
+
+        /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="notificador">Instância de um notificador</param>
         /// <param name="logger">Instância de um objeto de Log</param>
         /// <param name="servicoDeAuth">Instância de um serviço de autenticação</param>
-        public AuthController(ILogger logger,
-                              IServicoDeAuth servicoDeAuth) : base (logger)
+        public AuthController(ILogger<AuthController> logger,
+                              IServicoDeAuth servicoDeAuth)
         {
             _servicoDeAuth = servicoDeAuth;
+            _logger = logger;
         }
 
         /// <summary>

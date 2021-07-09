@@ -15,7 +15,7 @@ namespace Stone.Infraestrutura.Mapeamentos
         /// <param name="builder">Construtor</param>
         public void Configure(EntityTypeBuilder<Transacao> builder)
         {
-            builder.HasKey(v => new { v.IdUsuario, v.IdAplicativo, v.IdCartao });
+            builder.HasKey(v => new { v.IdUsuario, v.IdAplicativo });
 
             builder.HasOne(v => v.Aplicativo)
                    .WithMany(v => v.Transacoes)

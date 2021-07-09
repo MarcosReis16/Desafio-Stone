@@ -13,6 +13,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stone.API", "src\Stone.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stone.Dominio", "src\Stone.Dominio\Stone.Dominio.csproj", "{845E6F98-0635-48E7-873C-3729CBA0209B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - API", "01 - API", "{7436901E-F544-4760-9F7A-3ECAA928D89F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servicos", "02 - Servicos", "{FF4A7793-1B06-4284-915C-60DA6CD3C746}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Domínio", "03 - Domínio", "{F538B6E6-91D5-4E8C-91CE-34B0F50849CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Infraestrutura", "04 - Infraestrutura", "{76338B09-60F0-4A33-8B4D-81E2A7E16A16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Utilitários", "05 - Utilitários", "{7B8FEF16-2CCD-4AB1-B72B-2FD29032D838}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +52,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9CD2FF2-2583-4B7A-96B9-4FE56712F0AD} = {76338B09-60F0-4A33-8B4D-81E2A7E16A16}
+		{6CC89491-F73D-4AF1-9E43-8C8109467107} = {FF4A7793-1B06-4284-915C-60DA6CD3C746}
+		{343240D6-F641-464C-A33A-602FBA891E83} = {7B8FEF16-2CCD-4AB1-B72B-2FD29032D838}
+		{EE1E8E7C-E286-42D4-AE0B-D05C696ED297} = {7436901E-F544-4760-9F7A-3ECAA928D89F}
+		{845E6F98-0635-48E7-873C-3729CBA0209B} = {F538B6E6-91D5-4E8C-91CE-34B0F50849CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34770696-926F-4F4C-8296-84215171138C}

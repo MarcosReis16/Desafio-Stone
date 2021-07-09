@@ -10,17 +10,11 @@ namespace Stone.API.Controllers.Base
     public abstract class MainController : ControllerBase
     {
         /// <summary>
-        /// Instância de um objeto de Log
-        /// </summary>
-        protected readonly ILogger _logger;
-
-        /// <summary>
         /// Construtor
         /// </summary>
-        /// <param name="logger">Instância de um Logger</param>
-        protected MainController(ILogger logger)
+        protected MainController()
         {
-            _logger = logger;
+
         }
     }
     

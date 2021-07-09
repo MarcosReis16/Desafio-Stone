@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stone.API</name>
+    </assembly>
+    <members>
+        <member name="T:Stone.API.Configuration.AutoMapperConfig">
+            <summary>
+            Classe responsável por configurar o auto mapper
+            </summary>
+        </member>
+        <member name="M:Stone.API.Configuration.AutoMapperConfig.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="T:Stone.API.Configuration.DependencyInjectionConfig">
+            <summary>
+            Classe responsável pelas configurações de injeção de dependência
+            </summary>
+        </member>
+        <member name="M:Stone.API.Configuration.DependencyInjectionConfig.ResolveDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Método de extensão para resolver as dependências
+            </summary>
+            <param name="services">Instância de Service Collection</param>
+            <returns>Service Collection</returns>
+        </member>
+        <member name="T:Stone.API.Configuration.IdentityConfiguration">
+            <summary>
+            Classe responsável pelas configurações do identity
+            </summary>
+        </member>
+        <member name="M:Stone.API.Configuration.IdentityConfiguration.AddIdentityConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Método de extensão responsável pela configuração do identity
+            </summary>
+            <param name="services">Service Collection</param>
+            <param name="configuration">Configuration</param>
+            <returns></returns>
+        </member>
+        <member name="T:Stone.API.Configuration.SwaggerConfig">
+            <summary>
+            Classe de configuração do Swagger
+            </summary>
+        </member>
+        <member name="M:Stone.API.Configuration.SwaggerConfig.ConfigurarSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Método para configurar o Swagger
+            </summary>
+            <param name="services">Services</param>
+            <returns></returns>
+        </member>
+        <member name="T:Stone.API.Controllers.AuthController">
+            <summary>
+            Controller de autenticação
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.AuthController._servicoDeAuth">
+            <summary>
+            Instância do serviço de autenticação
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.AuthController._logger">
+            <summary>
+            Instância de um objeto de Log
+            </summary>
+        </member>
+        <member name="M:Stone.API.Controllers.AuthController.#ctor(Microsoft.Extensions.Logging.ILogger{Stone.API.Controllers.AuthController},Stone.Servico.Interfaces.IServicoDeAuth)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="logger">Instância de um objeto de Log</param>
+            <param name="servicoDeAuth">Instância de um serviço de autenticação</param>
+        </member>
+        <member name="M:Stone.API.Controllers.AuthController.Registrar(Stone.Dominio.DTO.UsuarioDeRegistroDTO)">
+            <summary>
+            Endpoint responsável por registrar um usuário
+            </summary>
+            <param name="usuarioDeRegistro">Usuário de Registro</param>
+            <returns>Custom Response</returns>
+        </member>
+        <member name="M:Stone.API.Controllers.AuthController.Login(Stone.Dominio.DTO.UsuarioDeLoginDTO)">
+            <summary>
+            Endpoint responsável pelo login do usuário
+            </summary>
+            <param name="usuarioDeLogin">Usuário de Login</param>
+            <returns>Resposta customizada com token JWT</returns>
+        </member>
+        <member name="T:Stone.API.Controllers.Base.MainController">
+            <summary>
+            Controller base
+            </summary>
+        </member>
+        <member name="M:Stone.API.Controllers.Base.MainController.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="T:Stone.API.Controllers.TransacoesController">
+            <summary>
+            Transações Controller
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.TransacoesController._servicoDeTransacoes">
+            <summary>
+            Serviço de transações
+            </summary>
+        </member>
+        <member name="M:Stone.API.Controllers.TransacoesController.#ctor(Stone.Servico.Interfaces.IServicoDeTransacoes)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="servicoDeTransacoes">Serviço de Transações</param>
+        </member>
+        <member name="M:Stone.API.Controllers.TransacoesController.Adicionar(Stone.Dominio.DTO.AdicionarTransacaoDTO)">
+            <summary>
+            Endpoint responsável por adicionar uma transação
+            </summary>
+            <param name="transacao">Transação</param>
+            <returns>Resultado da operação</returns>
+        </member>
+        <member name="M:Stone.API.Controllers.TransacoesController.ObterTodos">
+            <summary>
+            Endpoint responsável por obter todas as transações
+            </summary>
+            <returns>Lista com todas as transações</returns>
+        </member>
+        <member name="M:Stone.API.Controllers.TransacoesController.ObterPorId(System.Guid)">
+            <summary>
+            Endpoint responsável por obter uma transação por Id
+            </summary>
+            <returns>Transação</returns>
+        </member>
+    </members>
+</doc>

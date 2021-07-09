@@ -1,4 +1,5 @@
 ﻿using Stone.Dominio.Classes.Base;
+using Stone.Dominio.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -49,6 +50,35 @@ namespace Stone.Dominio.Classes
         /// </summary>
         public IList<Transacao> Transacoes { get; private set; }
 
+        /// <summary>
+        /// Construtor padrão
+        /// </summary>
+        public Cartao()
+        {
 
+        }
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="id">id</param>
+        public Cartao(Guid id)
+        {
+            Id = id;
+        }
+
+        /// <summary>
+        /// Método para criar uma entidade cartão
+        /// </summary>
+        /// <param name="cartao">Cartão DTO</param>
+        /// <returns>Cartão Model</returns>
+        public static Cartao Create(CartaoDTO cartao) => new()
+        {
+            Bandeira = cartao.Bandeira,
+            NomeDoTitular = cartao.NomeDoTitular,
+            Numero = cartao.Numero,
+            Validade = cartao.Validade,
+            CodigoDeSeguranca = cartao.CodigoDeSeguranca,
+            Id = cartao.Id.Value
+        };
     }
 }

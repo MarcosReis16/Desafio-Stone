@@ -2,6 +2,8 @@
 using Stone.Dominio.InterfacesDosRepositorios;
 using Stone.Infraestrutura.Contextos;
 using Stone.Infraestrutura.Repositorios;
+using Stone.Servico.Classes;
+using Stone.Servico.Interfaces;
 
 namespace Stone.API.Configuration
 {
@@ -20,6 +22,8 @@ namespace Stone.API.Configuration
             services.AddScoped<MeuDbContext>();
             services.AddScoped<IRepositorioDeCartoes, RepositorioDeCartoes>();
             services.AddScoped<IRepositorioDeTransacoes, RepositorioDeTransacoes>();
+            services.AddScoped<IServicoDeAuth, ServicoDeAuth>();
+            services.AddScoped<IServicoDeTransacoes, ServicoDeTransacoes>();
 
             return services;
         }

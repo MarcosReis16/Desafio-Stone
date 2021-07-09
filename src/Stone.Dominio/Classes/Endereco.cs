@@ -1,4 +1,5 @@
 ﻿using Stone.Dominio.Classes.Base;
+using Stone.Dominio.DTO;
 using System;
 
 namespace Stone.Dominio.Classes
@@ -64,6 +65,17 @@ namespace Stone.Dominio.Classes
         public Endereco()
         {
 
+        }
+
+        public Endereco(EnderecoDTO endereco)
+        {
+            Logradouro = endereco.Logradouro;
+            Cep = endereco.Cep;
+            Numero = endereco.Numero;
+            Bairro = endereco.Bairro;
+            Cidade = endereco.Cidade;
+            Estado = endereco.Estado;
+            Pais = endereco.Pais;
         }
 
     }

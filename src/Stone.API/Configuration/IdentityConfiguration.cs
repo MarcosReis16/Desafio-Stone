@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Stone.Infraestrutura.Contextos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Stone.Dominio.Classes;
+using System;
 
 namespace Stone.API.Configuration
 {
@@ -23,9 +25,20 @@ namespace Stone.API.Configuration
             services.AddDbContext<MeuDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentityCore<IdentityUser>()
-                    .AddEntityFrameworkStores<MeuDbContext>()
-                    .AddDefaultTokenProviders();
+            services.AddIdentityCore<Usuario>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.User.RequireUniqueEmail = true;
+            }).AddRoles<IdentityRole<Guid>>()
+              .AddUserManager<UserManager<Usuario>>()
+              .AddSignInManager<SignInManager<Usuario>>()
+              .AddEntityFrameworkStores<MeuDbContext>()
+              .AddDefaultTokenProviders();
+
             return services;
         }
     }
