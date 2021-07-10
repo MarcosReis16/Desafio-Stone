@@ -4,6 +4,19 @@
         <name>Stone.API</name>
     </assembly>
     <members>
+        <member name="T:Stone.API.Configuration.AuthConfig">
+            <summary>
+            Classe responsável por configurar a autenticação
+            </summary>
+        </member>
+        <member name="M:Stone.API.Configuration.AuthConfig.ConfigurarAutenticacao(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Método responsável por configurar
+            </summary>
+            <param name="services">Serviços</param>
+            <param name="configuration">Configuração</param>
+            <returns>Serviços</returns>
+        </member>
         <member name="T:Stone.API.Configuration.AutoMapperConfig">
             <summary>
             Classe responsável por configurar o auto mapper

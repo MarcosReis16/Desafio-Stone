@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stone.API.Controllers.Base;
 using Stone.Dominio.DTO;
@@ -14,6 +15,7 @@ namespace Stone.API.Controllers
     /// </summary>
     [Route("api/transacoes")]
     [ApiController]
+    [Authorize]
     public class TransacoesController : MainController
     {
         /// <summary>

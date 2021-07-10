@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Stone.API.Controllers.Base;
@@ -16,6 +17,7 @@ namespace Stone.API.Controllers
     /// Controller de Aplicativos
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize]
     public class AplicativosController : MainController
     {
         /// <summary>
