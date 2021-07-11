@@ -14,8 +14,7 @@ namespace Stone.Servico.Interfaces
         /// Adicionar
         /// </summary>
         /// <param name="transacao">Adicionar Transação DTO</param>
-        /// <returns>Confirmação</returns>
-        Task<bool> Adicionar(AdicionarTransacaoDTO transacao);
+        Task Adicionar(AdicionarTransacaoDTO transacao);
 
         /// <summary>
         /// Obter Todos
@@ -26,8 +25,9 @@ namespace Stone.Servico.Interfaces
         /// <summary>
         /// Obter por Id
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="idDoUsuario">Id do usuário</param>
+        /// <param name="idDoAplicativo">Id do aplicativo</param>
         /// <returns>Transacao</returns>
-        Task<TransacaoDTO> ObterPorId(Guid id);
+        Task<TransacaoDTO> ObterPorId(Guid idDoUsuario, Guid idDoAplicativo);
     }
 }

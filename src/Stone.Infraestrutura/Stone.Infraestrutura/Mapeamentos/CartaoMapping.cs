@@ -35,7 +35,7 @@ namespace Stone.Infraestrutura.Mapeamentos
 
             builder.Property(c => c.Validade)
                    .IsRequired()
-                   .HasColumnType("varchar(4)");
+                   .HasColumnType("varchar(5)");
 
             builder.ToTable("Cartoes");
         }

@@ -1,4 +1,5 @@
-﻿using Stone.Dominio.Classes;
+﻿using Microsoft.EntityFrameworkCore;
+using Stone.Dominio.Classes;
 using Stone.Dominio.InterfacesDosRepositorios;
 using Stone.Infraestrutura.Contextos;
 using Stone.Infraestrutura.Repositorios.Base;
@@ -16,7 +17,7 @@ namespace Stone.Infraestrutura.Repositorios
         /// <param name="db">Contexto</param>
         public RepositorioDeCartoes(MeuDbContext db) : base (db)
         {
-
+            
         }
     }
 }

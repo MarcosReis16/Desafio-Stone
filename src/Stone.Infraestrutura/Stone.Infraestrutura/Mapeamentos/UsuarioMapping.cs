@@ -36,11 +36,6 @@ namespace Stone.Infraestrutura.Mapeamentos
                 .WithOne(e => e.Usuario)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(u => u.Cartoes)
-                .WithOne(u => u.Usuario)
-                .HasForeignKey(u => u.IdUsuario)
-                .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

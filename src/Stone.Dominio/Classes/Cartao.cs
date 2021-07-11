@@ -2,6 +2,7 @@
 using Stone.Dominio.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Stone.Dominio.Classes
 {
@@ -36,14 +37,9 @@ namespace Stone.Dominio.Classes
         public string CodigoDeSeguranca { get; private set; }
 
         /// <summary>
-        /// Identificador do usuário
-        /// </summary>
-        public Guid IdUsuario { get; private set; }
-
-        /// <summary>
         /// Usuário
         /// </summary>
-        public Usuario Usuario { get; private set; }
+        public IList<UsuarioCartao> UsuarioCartao { get; private set; }
 
         /// <summary>
         /// Transações que o cartão foi utilizado
@@ -78,7 +74,35 @@ namespace Stone.Dominio.Classes
             Numero = cartao.Numero,
             Validade = cartao.Validade,
             CodigoDeSeguranca = cartao.CodigoDeSeguranca,
-            Id = cartao.Id.Value
+            Id = cartao.Id == null ? Guid.NewGuid() : cartao.Id.Value
         };
+
+        /// <summary>
+        /// Método para criar uma entidade cartão
+        /// </summary>
+        /// <param name="cartao">Adicionar Cartão DTO</param>
+        /// <returns>Cartão Model</returns>
+        public static Cartao Create(AdicionarCartaoDTO cartao) => new()
+        {
+            Bandeira = cartao.Bandeira,
+            NomeDoTitular = cartao.NomeDoTitular,
+            Numero = cartao.Numero,
+            Validade = cartao.Validade,
+            CodigoDeSeguranca = cartao.CodigoDeSeguranca,
+            Id = Guid.NewGuid(),
+        };
+
+        /// <summary>
+        /// Método para associar cartão e usuário
+        /// </summary>
+        /// <param name="idDoCartao"></param>
+        /// <param name="idDoUsuario"></param>
+        public void AssociarUsuarioCartao(Guid idDoCartao, Guid idDoUsuario)
+        {
+            if (UsuarioCartao == null || !UsuarioCartao.Any())
+                UsuarioCartao = new List<UsuarioCartao>();
+
+            UsuarioCartao.Add(Classes.UsuarioCartao.Create(idDoUsuario, idDoCartao));
+        }
     }
 }

@@ -166,10 +166,12 @@
             </summary>
             <returns>Lista com todas as transações</returns>
         </member>
-        <member name="M:Stone.API.Controllers.TransacoesController.ObterPorId(System.Guid)">
+        <member name="M:Stone.API.Controllers.TransacoesController.ObterPorId(System.Guid,System.Guid)">
             <summary>
             Endpoint responsável por obter uma transação por Id
             </summary>
+            <param name="idDoUsuario">Id do Usuário</param>
+            <param name="idDoAplicativo">Id do Aplicativo</param>
             <returns>Transação</returns>
         </member>
         <member name="T:Stone.API.Startup">

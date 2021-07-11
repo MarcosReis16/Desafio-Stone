@@ -43,9 +43,8 @@ namespace Stone.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar(AdicionarTransacaoDTO transacao)
         {
-            if(await _servicoDeTransacoes.Adicionar(transacao))
-                return Created(nameof(Adicionar), null);
-            return BadRequest();
+            await _servicoDeTransacoes.Adicionar(transacao);
+            return Created(nameof(Adicionar), null);
         }
 
         /// <summary>
@@ -64,14 +63,16 @@ namespace Stone.API.Controllers
         /// <summary>
         /// Endpoint responsável por obter uma transação por Id
         /// </summary>
+        /// <param name="idDoUsuario">Id do Usuário</param>
+        /// <param name="idDoAplicativo">Id do Aplicativo</param>
         /// <returns>Transação</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status500InternalServerError)]
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> ObterPorId(Guid id)
+        [HttpGet("obterPorId")]
+        public async Task<IActionResult> ObterPorId(Guid idDoUsuario, Guid idDoAplicativo)
         {
-            return Ok(await _servicoDeTransacoes.ObterPorId(id));
+            return Ok(await _servicoDeTransacoes.ObterPorId(idDoUsuario, idDoAplicativo));
         }
 
     }

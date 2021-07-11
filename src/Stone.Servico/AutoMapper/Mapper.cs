@@ -23,6 +23,12 @@ namespace Stone.Servico.AutoMapper
 
             profile.CreateMap<Aplicativo, AplicativoDTO>()
                    .ReverseMap();
+            
+            profile.CreateMap<UsuarioCartao, UsuarioCartaoDTO>()
+                   .ReverseMap();
+
+            profile.CreateMap<Cartao, CartaoDTO>()
+                   .ReverseMap();
 
             profile.CreateMap<Transacao, TransacaoDTO>()
                    .ForPath(t => t.Usuario.Id, t => t.MapFrom(tr => tr.IdUsuario))
@@ -30,9 +36,7 @@ namespace Stone.Servico.AutoMapper
                    .ForPath(t => t.Cartao.Id, t => t.MapFrom(tr => tr.IdCartao))
                    .ReverseMap();
 
-            profile.CreateMap<Cartao, CartaoDTO>()
-                   .ForPath(c => c.Usuario.Id, act => act.MapFrom(src => src.IdUsuario))
-                   .ReverseMap();
+
         }
     }
 }

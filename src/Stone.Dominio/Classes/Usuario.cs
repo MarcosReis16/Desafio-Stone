@@ -47,21 +47,30 @@ namespace Stone.Dominio.Classes
         /// <summary>
         /// Cartões salvos pelo usuário
         /// </summary>
-        public IList<Cartao> Cartoes { get; private set; }
+        public IList<UsuarioCartao> UsuarioCartoes { get; private set; }
 
         /// <summary>
         /// Construtor padrão
         /// </summary>
-        public Usuario() : base ()
+        public Usuario() : base()
         {
             Id = Guid.NewGuid();
         }
 
         /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="id">Id</param>
+        public Usuario(Guid id)
+        {
+            Id = id;
+        }
+
+        /// <summary>
         /// Método para criar um usuário identity
         /// </summary>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
+        /// <param name="usuario">Usuário de Registro</param>
+        /// <returns>Usuário</returns>
         public static Usuario Create(UsuarioDeRegistroDTO usuario) => new()
         {
             Id = Guid.NewGuid(),
@@ -74,6 +83,8 @@ namespace Stone.Dominio.Classes
             Sexo = usuario.Sexo,
             Endereco = new Endereco(usuario.Endereco),
         };
+
+        
 
     }
 }

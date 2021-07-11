@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Stone.Dominio.DTO
 {
     /// <summary>
-    /// Classe DTO responsável pelo cartão
+    /// Classe responsável por adicionar o cartão
     /// </summary>
-    public class CartaoDTO
+    public class AdicionarCartaoDTO
     {
-        /// <summary>
-        /// Identificador do Cartão
-        /// </summary>
-        public Guid? Id { get; set; }
-
         /// <summary>
         /// Bandeira
         /// </summary>
@@ -37,15 +31,5 @@ namespace Stone.Dominio.DTO
         /// Código de Segurança
         /// </summary>
         public string CodigoDeSeguranca { get; set; }
-
-        /// <summary>
-        /// Usuário
-        /// </summary>
-        public UsuarioDTO Usuario { get; set; }
-
-        /// <summary>
-        /// Transações que o cartão foi utilizado
-        /// </summary>
-        public IList<TransacaoDTO> Transacoes { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stone.Infraestrutura.Contextos;
 
 namespace Stone.Infraestrutura.Migrations
 {
     [DbContext(typeof(MeuDbContext))]
-    partial class MeuDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711161722_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,19 +170,19 @@ namespace Stone.Infraestrutura.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8311aa92-5ae9-4175-9b9d-c1e53d56315f"),
+                            Id = new Guid("281969eb-7fc6-4914-8340-6cff41b1af1e"),
                             Nome = "App1",
                             Valor = 35m
                         },
                         new
                         {
-                            Id = new Guid("57b2318b-56eb-4ea2-9727-91775513e806"),
+                            Id = new Guid("5ddf4c0a-ee5e-4970-86ce-25891ea7e643"),
                             Nome = "App2",
                             Valor = 12.5m
                         },
                         new
                         {
-                            Id = new Guid("8d914d5a-cb7e-4259-a01d-87f1ac49a3e3"),
+                            Id = new Guid("d20e92b7-e4ed-4a84-9e2c-24b3fa47f741"),
                             Nome = "App3",
                             Valor = 7.8m
                         });
@@ -210,7 +212,7 @@ namespace Stone.Infraestrutura.Migrations
 
                     b.Property<string>("Validade")
                         .IsRequired()
-                        .HasColumnType("varchar(5)");
+                        .HasColumnType("varchar(4)");
 
                     b.HasKey("Id");
 

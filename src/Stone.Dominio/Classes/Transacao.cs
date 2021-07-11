@@ -1,4 +1,5 @@
 ﻿using Stone.Dominio.DTO;
+using Stone.Dominio.Enums;
 using System;
 
 namespace Stone.Dominio.Classes
@@ -39,16 +40,46 @@ namespace Stone.Dominio.Classes
         public Cartao Cartao { get; private set; }
 
         /// <summary>
+        /// Status da Transação
+        /// </summary>
+        public int StatusDaTransacao { get; private set; }
+
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        public Transacao()
+        {
+
+        }
+
+        /// <summary>
         /// Método para criar uma transação
         /// </summary>
         /// <param name="transacao">Adicionar Transação</param>
+        /// <param name="usuario">Usuario</param>
+        /// <param name="cartao">Cartao</param>
         /// <returns>Transação</returns>
-        public static Transacao Create(AdicionarTransacaoDTO transacao) => new()
+        public Transacao (AdicionarTransacaoDTO transacao, Usuario usuario, Cartao cartao)
         {
-            IdUsuario = transacao.IdUsuario,
-            IdAplicativo = transacao.IdAplicativo,
-            IdCartao = transacao.Cartao.Id == null ? Guid.Empty : transacao.Cartao.Id.Value,
-            Cartao = transacao.Cartao.Id == null ? Cartao.Create(transacao.Cartao) : new Cartao(transacao.Cartao.Id.Value)
-        };
+            IdUsuario = usuario.Id;
+            IdAplicativo = transacao.IdAplicativo.Value;
+            IdCartao = cartao.Id;
+            StatusDaTransacao = (int)EStatusDaTransacao.AguardandoProcessamento;
+
+            if (transacao.SalvarCartao.Value)
+            {
+                Cartao = cartao;
+                Cartao.AssociarUsuarioCartao(IdCartao, IdUsuario);
+            }
+        }
+
+        /// <summary>
+        /// Método para alterar o status da transação
+        /// </summary>
+        /// <param name="status">Status da transação</param>
+        public void AlterarStatusDaTransacao(EStatusDaTransacao status)
+        {
+            StatusDaTransacao = (int)status;
+        }
     }
 }

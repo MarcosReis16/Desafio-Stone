@@ -61,6 +61,24 @@ namespace Stone.Utilitarios.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Aplicativo não encontrado..
+        /// </summary>
+        public static string AplicativoNaoEncontrado {
+            get {
+                return ResourceManager.GetString("AplicativoNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cartão não encontrado..
+        /// </summary>
+        public static string CartaoNaoEncontrado {
+            get {
+                return ResourceManager.GetString("CartaoNaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ocorreu um erro de negócio.
         /// </summary>
         public static string ErroDeNegocio {
@@ -88,6 +106,15 @@ namespace Stone.Utilitarios.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Houve um erro ao adicionar a transação..
+        /// </summary>
+        public static string FalhaAoAdicionarTransacao {
+            get {
+                return ResourceManager.GetString("FalhaAoAdicionarTransacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Transação realizada com sucesso..
         /// </summary>
         public static string IncluirTransacaoComSucesso {
@@ -111,6 +138,15 @@ namespace Stone.Utilitarios.Mensagens {
         public static string RegistroComSucesso {
             get {
                 return ResourceManager.GetString("RegistroComSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não encontrado..
+        /// </summary>
+        public static string UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("UsuarioNaoEncontrado", resourceCulture);
             }
         }
     }
