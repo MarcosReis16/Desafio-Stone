@@ -32,8 +32,11 @@ namespace Stone.Servico.AutoMapper
 
             profile.CreateMap<Transacao, TransacaoDTO>()
                    .ForPath(t => t.Usuario.Id, t => t.MapFrom(tr => tr.IdUsuario))
+                   .ForPath(t => t.Usuario, t => t.MapFrom(tr => tr.Usuario))
                    .ForPath(t => t.Aplicativo.Id, t => t.MapFrom(tr => tr.IdAplicativo))
+                   .ForPath(t => t.Aplicativo, t => t.MapFrom(tr => tr.Aplicativo))
                    .ForPath(t => t.Cartao.Id, t => t.MapFrom(tr => tr.IdCartao))
+                   .ForPath(t => t.Cartao, t => t.MapFrom(tr => tr.Cartao))
                    .ReverseMap();
 
 

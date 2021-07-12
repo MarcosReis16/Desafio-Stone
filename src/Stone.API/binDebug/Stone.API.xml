@@ -137,6 +137,22 @@
             Construtor
             </summary>
         </member>
+        <member name="T:Stone.API.Controllers.CartaoController">
+            <summary>
+            Controller responsável pelo Cartão
+            </summary>
+        </member>
+        <member name="F:Stone.API.Controllers.CartaoController._servicoDeCartao">
+            <summary>
+            Instância do serviço de cartão
+            </summary>
+        </member>
+        <member name="M:Stone.API.Controllers.CartaoController.#ctor(Stone.Servico.Interfaces.IServicoDeCartao)">
+            <summary>
+            Construtor
+            </summary>
+            <param name="servicoDeCartao">Serviço de Cartão</param>
+        </member>
         <member name="T:Stone.API.Controllers.TransacoesController">
             <summary>
             Transações Controller

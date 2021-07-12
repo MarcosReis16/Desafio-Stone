@@ -69,7 +69,7 @@ namespace Stone.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErroResposta), StatusCodes.Status500InternalServerError)]
-        [HttpGet("obterPorId")]
+        [HttpGet("usuario/{idDoUsuario:guid}/aplicativo/{idDoAplicativo:guid}")]
         public async Task<IActionResult> ObterPorId(Guid idDoUsuario, Guid idDoAplicativo)
         {
             return Ok(await _servicoDeTransacoes.ObterPorId(idDoUsuario, idDoAplicativo));

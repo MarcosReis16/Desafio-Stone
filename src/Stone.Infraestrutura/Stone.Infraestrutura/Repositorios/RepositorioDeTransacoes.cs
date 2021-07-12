@@ -4,6 +4,7 @@ using Stone.Dominio.InterfacesDosRepositorios;
 using Stone.Infraestrutura.Contextos;
 using Stone.Infraestrutura.Repositorios.Base;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Stone.Infraestrutura.Repositorios
@@ -29,11 +30,13 @@ namespace Stone.Infraestrutura.Repositorios
         /// <returns>Transação</returns>
         public async Task<Transacao> ObterTransacaoAplicativoUsuarioCartao(Guid idUsuario, Guid idAplicativo)
         {
-            return await DbSet.Include(t => t.Aplicativo)
-                              .Include(t => t.Usuario)
-                              .Include(t => t.Cartao)
-                              .FirstOrDefaultAsync(t => t.IdUsuario == idUsuario &&
-                                                   t.IdAplicativo == idAplicativo);
+            var resultado = await DbSet.Include(t => t.Aplicativo)
+                                       .Include(t => t.Usuario)
+                                       .Include(t => t.Cartao)
+                                       .FirstOrDefaultAsync(t => t.IdUsuario == idUsuario && t.IdAplicativo == idAplicativo);
+
+            return resultado;
+                              
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Stone.API.Configuration;
 using Stone.Utilitarios.Filtros.Excecao;
+using System.Text.Json.Serialization;
 
 namespace Stone.API
 {
@@ -35,6 +36,12 @@ namespace Stone.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options => options.Filters.Add(typeof(ApiExcecaoFiltros)))
+                    .AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.MaxDepth = 0;
+                        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                        //options.JsonSerializerOptions.WriteIndented = true;
+                    })
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.ConfigurarSwagger();
