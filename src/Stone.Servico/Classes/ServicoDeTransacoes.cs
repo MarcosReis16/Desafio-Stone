@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using Stone.Dominio.Classes;
 using Stone.Dominio.DTO;
 using Stone.Dominio.Excecoes;
@@ -10,6 +11,8 @@ using Stone.Servico.Interfaces;
 using Stone.Utilitarios.Mensagens;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Stone.Servico.Classes
@@ -61,10 +64,10 @@ namespace Stone.Servico.Classes
         }
 
         /// <summary>
-        /// Adicionar
+        /// Adicionar Transação na fila
         /// </summary>
         /// <param name="transacao">Adicionar Transação DTO</param>
-        public async Task Adicionar(AdicionarTransacaoDTO transacao)
+        public async Task AdicionarNaFila(AdicionarTransacaoDTO transacao)
         {
             var usuario = await _userManager.FindByIdAsync(transacao.IdUsuario.ToString());
 
@@ -73,11 +76,43 @@ namespace Stone.Servico.Classes
 
             if (await _repositorioDeAplicativos.ObterPorId(transacao.IdAplicativo.Value) == null) throw new ExcecaoDeNegocio(Mensagens.AplicativoNaoEncontrado);
 
-            if (!await _repositorioDeTransacoes.Adicionar(new Transacao(transacao, usuario, cartao)))
-                throw new ExcecaoDeNegocio(Mensagens.FalhaAoAdicionarTransacao);
+            Transacao transacaoParaFila = new(transacao, usuario, cartao);
+            string dado = JsonSerializer.Serialize(transacaoParaFila);
+            AdicionarTransacaoNaFila(dado);
 
-            _logger.LogInformation(Mensagens.IncluirTransacaoComSucesso);
+            //if (!await _repositorioDeTransacoes.Adicionar(new Transacao(transacao, usuario, cartao)))
+            //    throw new ExcecaoDeNegocio(Mensagens.FalhaAoAdicionarTransacao);
 
+            _logger.LogInformation(Mensagens.TransacaoAdicionadaNaFila);
+
+        }
+
+        /// <summary>
+        /// Método responsável por inserir a transação no Rabbit MQ
+        /// </summary>
+        /// <param name="dado">Transação em Json</param>
+        private static void AdicionarTransacaoNaFila(string dado)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "inserirTransacao",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+
+                
+                var body = Encoding.UTF8.GetBytes(dado);
+
+                channel.BasicPublish(exchange: "",
+                                     routingKey: "inserirTransacao",
+                                     basicProperties: null,
+                                     body: body);
+
+
+            }
         }
 
         /// <summary>

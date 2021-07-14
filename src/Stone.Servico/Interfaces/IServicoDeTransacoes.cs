@@ -14,7 +14,7 @@ namespace Stone.Servico.Interfaces
         /// Adicionar
         /// </summary>
         /// <param name="transacao">Adicionar Transação DTO</param>
-        Task Adicionar(AdicionarTransacaoDTO transacao);
+        Task AdicionarNaFila(AdicionarTransacaoDTO transacao);
 
         /// <summary>
         /// Obter Todos

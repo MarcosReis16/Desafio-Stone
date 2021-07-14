@@ -142,6 +142,15 @@ namespace Stone.Utilitarios.Mensagens {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A transação foi adicionada na fila com sucesso..
+        /// </summary>
+        public static string TransacaoAdicionadaNaFila {
+            get {
+                return ResourceManager.GetString("TransacaoAdicionadaNaFila", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Usuário não encontrado..
         /// </summary>
         public static string UsuarioNaoEncontrado {

@@ -153,6 +153,19 @@
             </summary>
             <param name="servicoDeCartao">Serviço de Cartão</param>
         </member>
+        <member name="M:Stone.API.Controllers.CartaoController.ObterTodos">
+            <summary>
+            Endpoint responsável por trazer todos os cartões
+            </summary>
+            <returns>Lista de Cartões</returns>
+        </member>
+        <member name="M:Stone.API.Controllers.CartaoController.ObterPorId(System.Guid)">
+            <summary>
+            Endpoint responsável por pegar o cartão pelo id
+            </summary>
+            <param name="id">Id</param>
+            <returns>Cartão</returns>
+        </member>
         <member name="T:Stone.API.Controllers.TransacoesController">
             <summary>
             Transações Controller

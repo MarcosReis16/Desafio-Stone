@@ -144,6 +144,9 @@
   <data name="RegistroComSucesso" xml:space="preserve">
     <value>Usuário registrado com sucesso.</value>
   </data>
+  <data name="TransacaoAdicionadaNaFila" xml:space="preserve">
+    <value>A transação foi adicionada na fila com sucesso.</value>
+  </data>
   <data name="UsuarioNaoEncontrado" xml:space="preserve">
     <value>Usuário não encontrado.</value>
   </data>

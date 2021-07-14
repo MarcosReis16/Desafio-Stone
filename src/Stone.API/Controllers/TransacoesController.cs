@@ -43,7 +43,7 @@ namespace Stone.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar(AdicionarTransacaoDTO transacao)
         {
-            await _servicoDeTransacoes.Adicionar(transacao);
+            await _servicoDeTransacoes.AdicionarNaFila(transacao);
             return Created(nameof(Adicionar), null);
         }
 
