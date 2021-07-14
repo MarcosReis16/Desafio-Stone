@@ -1,4 +1,5 @@
-﻿using Stone.Dominio.DTO;
+﻿using Stone.Dominio.Classes;
+using Stone.Dominio.DTO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

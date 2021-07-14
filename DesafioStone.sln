@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Infraestrutura", "04 -
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Utilitários", "05 - Utilitários", "{7B8FEF16-2CCD-4AB1-B72B-2FD29032D838}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stone.Consumer", "src\Stone.Consumer\Stone.Consumer.csproj", "{A8A84594-3DC2-4571-9E6C-FC150ABE1D45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{845E6F98-0635-48E7-873C-3729CBA0209B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{845E6F98-0635-48E7-873C-3729CBA0209B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{845E6F98-0635-48E7-873C-3729CBA0209B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A84594-3DC2-4571-9E6C-FC150ABE1D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A84594-3DC2-4571-9E6C-FC150ABE1D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A84594-3DC2-4571-9E6C-FC150ABE1D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A84594-3DC2-4571-9E6C-FC150ABE1D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{343240D6-F641-464C-A33A-602FBA891E83} = {7B8FEF16-2CCD-4AB1-B72B-2FD29032D838}
 		{EE1E8E7C-E286-42D4-AE0B-D05C696ED297} = {7436901E-F544-4760-9F7A-3ECAA928D89F}
 		{845E6F98-0635-48E7-873C-3729CBA0209B} = {F538B6E6-91D5-4E8C-91CE-34B0F50849CF}
+		{A8A84594-3DC2-4571-9E6C-FC150ABE1D45} = {7436901E-F544-4760-9F7A-3ECAA928D89F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34770696-926F-4F4C-8296-84215171138C}

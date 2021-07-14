@@ -80,9 +80,6 @@ namespace Stone.Servico.Classes
             string dado = JsonSerializer.Serialize(transacaoParaFila);
             AdicionarTransacaoNaFila(dado);
 
-            //if (!await _repositorioDeTransacoes.Adicionar(new Transacao(transacao, usuario, cartao)))
-            //    throw new ExcecaoDeNegocio(Mensagens.FalhaAoAdicionarTransacao);
-
             _logger.LogInformation(Mensagens.TransacaoAdicionadaNaFila);
 
         }
