@@ -232,5 +232,45 @@
             <param name="app">Administrador da aplicação</param>
             <param name="env">Web Host ambiente</param>
         </member>
+        <member name="T:Stone.Dominio.Validation.AdicionarCartaoValidation">
+            <summary>
+            Validador do Adicionar Cartão
+            </summary>
+        </member>
+        <member name="M:Stone.Dominio.Validation.AdicionarCartaoValidation.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="T:Stone.Dominio.Validation.AdicionarTransacaoValidation">
+            <summary>
+            Classe de validação do Adicionar Transação
+            </summary>
+        </member>
+        <member name="M:Stone.Dominio.Validation.AdicionarTransacaoValidation.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="T:Stone.Dominio.Validation.EnderecoValidation">
+            <summary>
+            Validação de Endereço
+            </summary>
+        </member>
+        <member name="M:Stone.Dominio.Validation.EnderecoValidation.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="T:Stone.Dominio.Validation.UsuarioDeRegistroValidation">
+            <summary>
+            Classe de validação de usuário de registro
+            </summary>
+        </member>
+        <member name="M:Stone.Dominio.Validation.UsuarioDeRegistroValidation.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
     </members>
 </doc>
