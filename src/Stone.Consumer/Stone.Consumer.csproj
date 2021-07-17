@@ -10,8 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Stone.Dominio\Stone.Dominio.csproj" />
+    <ProjectReference Include="..\Stone.Infraestrutura\Stone.Infraestrutura\Stone.Infraestrutura.csproj" />
     <ProjectReference Include="..\Stone.Servico\Stone.Servico.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

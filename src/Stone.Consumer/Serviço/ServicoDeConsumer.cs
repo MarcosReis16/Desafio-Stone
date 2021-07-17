@@ -2,20 +2,17 @@
 using RabbitMQ.Client.Events;
 using Stone.Dominio.Classes;
 using Stone.Dominio.Enums;
-using Stone.Dominio.Excecoes;
 using Stone.Dominio.InterfacesDosRepositorios;
-using Stone.Utilitarios.Mensagens;
 using System;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Stone.Consumer.Serviço
 {
     /// <summary>
     /// Serviço de consumo
     /// </summary>
-    public class ServicoDeConsumer
+    public class ServicoDeConsumer : IServicoDeConsumer
     {
         /// <summary>
         /// Instância de um repositório de transações
@@ -35,7 +32,7 @@ namespace Stone.Consumer.Serviço
         /// Método responsável por processar transações da Fila
         /// </summary>
         /// <returns></returns>
-        public async Task Processar()
+        public void Processar()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -52,25 +49,24 @@ namespace Stone.Consumer.Serviço
                 {
                     try
                     {
-                        var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                        var body = ea.Body.ToArray();
+                        var message = Encoding.UTF8.GetString(body);
                         Transacao transacao = JsonSerializer.Deserialize<Transacao>(message);
                         transacao.AlterarStatusDaTransacao(EStatusDaTransacao.Processada);
-                        channel.BasicAck(ea.DeliveryTag, false);
 
-                        if (!await _repositorioDeTransacoes.Adicionar(transacao))
-                            throw new ExcecaoDeNegocio(Mensagens.FalhaAoAdicionarTransacao);
+                        await _repositorioDeTransacoes.Adicionar(transacao);
+
+                        channel.BasicAck(ea.DeliveryTag, false);
                     }
                     catch (Exception)
                     {
                         channel.BasicNack(ea.DeliveryTag, false, true);
                     }
-                    finally
-                    {
-                        channel.BasicConsume(queue: "inserirTransacao",
+                    
+                };
+                channel.BasicConsume(queue: "inserirTransacao",
                                              autoAck: false,
                                              consumer: consumer);
-                    }
-                };
             }
         }
 

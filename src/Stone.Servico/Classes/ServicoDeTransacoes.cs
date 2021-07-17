@@ -108,7 +108,6 @@ namespace Stone.Servico.Classes
                                      basicProperties: null,
                                      body: body);
 
-
             }
         }
 
